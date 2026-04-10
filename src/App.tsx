@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'react-framer-motion';
 import { Shield, Clock, Phone, Instagram, Facebook, Twitter, type LucideProps, User, Settings } from 'lucide-react';
 
 // --- DATA ---
@@ -12,7 +12,7 @@ const cars = [
   { id: 6, name: "Lamborghini Urus", price: 8500, category: "SUV", image: "https://images.unsplash.com/photo-1544636331-e268592033c2?auto=format&fit=crop&q=80&w=1000", specs: ["Automatique", "5 Sièges", "Super SUV"] }
 ];
 
-const cities = ["Marrakech", "Casablanca", "Tanger", "Agadir", "Rabat"];
+const WHATSAPP_NUMBER = "+212700382718";
 
 // --- COMPONENTS ---
 
@@ -29,7 +29,7 @@ const Navbar = ({ activePage, setPage }: { activePage: string, setPage: (p: stri
     <nav className={`glass-nav ${isScrolled || activePage !== 'home' ? 'scrolled' : ''}`}>
       <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div className="logo" onClick={() => setPage('home')} style={{ fontSize: '1.5rem', fontWeight: 700, letterSpacing: '2px', cursor: 'pointer' }}>
-          CHAROKI<span className="gold-text">CARS</span> <span style={{fontSize: '0.8rem', fontWeight: 300}}>MAROC</span>
+          CHAROKI<span className="gold-text">CARS</span> <span style={{fontSize: '0.8rem', fontWeight: 300}}>CASABLANCA</span>
         </div>
         
         <div className="desktop-menu" style={{ display: 'flex', gap: '40px', alignItems: 'center' }}>
@@ -66,10 +66,10 @@ const Home = ({ setPage }: { setPage: (p: string) => void }) => (
       <div className="container">
         <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1 }} style={{ maxWidth: '600px' }}>
           <h1 style={{ fontSize: '4.5rem', lineHeight: 1.1, marginBottom: '20px' }}>
-            L'Excellence <br /><span className="gold-text">Sur Mesure</span>
+            L'Excellence <br /><span className="gold-text">À Casablanca</span>
           </h1>
           <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', marginBottom: '40px', lineHeight: 1.6 }}>
-            Découvrez notre collection exclusive de véhicules de prestige au Maroc. Voyagez avec élégance.
+            Découvrez notre collection exclusive de véhicules de prestige dans notre showroom à Casablanca. Voyagez avec élégance.
           </p>
           <div style={{ display: 'flex', gap: '20px' }}>
             <button className="btn-primary" onClick={() => setPage('fleet')}>Explorer le Parc</button>
@@ -81,7 +81,6 @@ const Home = ({ setPage }: { setPage: (p: string) => void }) => (
       </div>
     </section>
 
-    {/* Featured Preview */}
     <section>
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '60px' }}>
@@ -94,7 +93,7 @@ const Home = ({ setPage }: { setPage: (p: string) => void }) => (
               <div style={{ padding: '25px' }}>
                 <h3>{car.name}</h3>
                 <div style={{ margin: '15px 0', color: 'var(--gold)', fontWeight: 700 }}>{car.price} MAD / Jour</div>
-                <button className="btn-primary" style={{ width: '100%' }} onClick={() => setPage('booking')}>Détails & Réservation</button>
+                <button className="btn-primary" style={{ width: '100%' }} onClick={() => setPage(`booking-${car.id}`)}>Réserver ce modèle</button>
               </div>
             </div>
           ))}
@@ -107,46 +106,23 @@ const Home = ({ setPage }: { setPage: (p: string) => void }) => (
 const Fleet = ({ setPage }: { setPage: (p: string) => void }) => {
   const [filter, setFilter] = useState('Tous');
   const categories = ['Tous', 'SUV', 'Sport', 'Berline'];
-  
   const filteredCars = filter === 'Tous' ? cars : cars.filter(c => c.category === filter);
 
   return (
     <section style={{ paddingTop: '150px' }}>
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 style={{ textAlign: 'center', fontSize: '3rem', marginBottom: '40px' }}>Notre <span className="gold-text">Flotte de Prestige</span></h1>
-          
-          {/* Filters */}
+          <h1 style={{ textAlign: 'center', fontSize: '3rem', marginBottom: '40px' }}>Notre <span className="gold-text">Flotte Prestige</span></h1>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginBottom: '60px' }}>
             {categories.map(cat => (
-              <button 
-                key={cat}
-                onClick={() => setFilter(cat)}
-                style={{
-                  background: filter === cat ? 'var(--gold)' : 'transparent',
-                  border: '1px solid var(--gold)',
-                  color: filter === cat ? 'black' : 'var(--gold)',
-                  padding: '10px 25px',
-                  borderRadius: '30px',
-                  cursor: 'pointer',
-                  fontWeight: 600,
-                  transition: 'var(--transition)'
-                }}
-              >
+              <button key={cat} onClick={() => setFilter(cat)} style={{ background: filter === cat ? 'var(--gold)' : 'transparent', border: '1px solid var(--gold)', color: filter === cat ? 'black' : 'var(--gold)', padding: '10px 25px', borderRadius: '30px', cursor: 'pointer', fontWeight: 600, transition: 'var(--transition)' }}>
                 {cat}
               </button>
             ))}
           </div>
-
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '40px' }}>
             {filteredCars.map((car, idx) => (
-              <motion.div 
-                key={car.id} 
-                initial={{ opacity: 0, y: 20 }} 
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1 }}
-                className="car-card"
-              >
+              <motion.div key={car.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }} className="car-card">
                 <div className="car-image" style={{ backgroundImage: `url(${car.image})` }}></div>
                 <div style={{ padding: '30px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
@@ -161,7 +137,7 @@ const Fleet = ({ setPage }: { setPage: (p: string) => void }) => {
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div style={{ fontSize: '1.2rem', fontWeight: 700 }}>{car.price} <span style={{ fontSize: '0.8rem', fontWeight: 400 }}>MAD/J</span></div>
-                    <button className="btn-primary" onClick={() => setPage('booking')}>Réserver</button>
+                    <button className="btn-primary" onClick={() => setPage(`booking-${car.id}`)}>Réserver</button>
                   </div>
                 </div>
               </motion.div>
@@ -173,44 +149,55 @@ const Fleet = ({ setPage }: { setPage: (p: string) => void }) => {
   );
 };
 
-const Booking = () => {
+const Booking = ({ selectedCarId }: { selectedCarId?: number }) => {
   const [step, setStep] = useState(1);
-  
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    startDate: '',
+    endDate: '',
+    carId: selectedCarId || 1
+  });
+
+  const selectedCar = cars.find(c => c.id === Number(formData.carId)) || cars[0];
+
+  const handleWhatsApp = () => {
+    const message = `Bonjour CHAROKI CARS,%0A%0AJe souhaite réserver un véhicule :%0A- *Modèle* : ${selectedCar.name}%0A- *Dates* : du ${formData.startDate} au ${formData.endDate}%0A%0A*Mes coordonnées* :%0A- *Nom* : ${formData.name}%0A- *Email* : ${formData.email}%0A- *Téléphone* : ${formData.phone}%0A%0AEn provenance de Casablanca. Merci !`;
+    window.open(`https://wa.me/${WHATSAPP_NUMBER.replace('+', '')}?text=${message}`, '_blank');
+  };
+
   return (
     <section style={{ paddingTop: '150px', minHeight: '100vh' }}>
       <div className="container" style={{ maxWidth: '800px' }}>
         <div style={{ background: 'var(--card-bg)', padding: '50px', borderRadius: '4px', border: '1px solid rgba(212, 175, 55, 0.2)' }}>
           <h2 style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '40px' }}>Réserver <span className="gold-text">Votre Véhicule</span></h2>
           
-          {/* Progress Bar */}
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '50px', position: 'relative' }}>
             <div style={{ position: 'absolute', top: '15px', left: 0, width: '100%', height: '1px', background: '#333', zIndex: 0 }}></div>
-            {[1, 2, 3].map(s => (
-              <div key={s} style={{ 
-                width: '30px', height: '30px', borderRadius: '50%', background: step >= s ? 'var(--gold)' : '#111', 
-                color: step >= s ? 'black' : 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                zIndex: 1, fontWeight: 700, fontSize: '0.8rem', border: '1px solid var(--gold)'
-              }}>
-                {s}
-              </div>
+            {[1, 2].map(s => (
+              <div key={s} style={{ width: '30px', height: '30px', borderRadius: '50%', background: step >= s ? 'var(--gold)' : '#111', color: step >= s ? 'black' : 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1, fontWeight: 700, fontSize: '0.8rem', border: '1px solid var(--gold)' }}>{s}</div>
             ))}
           </div>
 
           <AnimatePresence mode="wait">
             {step === 1 && (
               <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+                <div style={{ marginBottom: '30px', padding: '20px', background: '#000', border: '1px solid #222', display: 'flex', alignItems: 'center', gap: '20px' }}>
+                    <div style={{ width: '100px', height: '60px', backgroundImage: `url(${selectedCar.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
+                    <div>
+                        <div style={{ fontSize: '0.7rem', color: 'var(--gold)' }}>VÉHICULE SÉLECTIONNÉ</div>
+                        <div style={{ fontWeight: 700 }}>{selectedCar.name}</div>
+                    </div>
+                </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '30px' }}>
                   <div>
-                    <label style={{ display: 'block', marginBottom: '10px', fontSize: '0.8rem', color: 'var(--gold)' }}>VILLE DE DÉPART</label>
-                    <select style={{ width: '100%', background: '#000', border: '1px solid #333', color: 'white', padding: '15px' }}>
-                      {cities.map(c => <option key={c}>{c}</option>)}
-                    </select>
+                    <label style={{ display: 'block', marginBottom: '10px', fontSize: '0.8rem', color: 'var(--gold)' }}>DATE DE DÉBUT</label>
+                    <input type="date" value={formData.startDate} onChange={e => setFormData({...formData, startDate: e.target.value})} style={{ width: '100%', background: '#000', border: '1px solid #333', color: 'white', padding: '15px' }} />
                   </div>
                   <div>
-                    <label style={{ display: 'block', marginBottom: '10px', fontSize: '0.8rem', color: 'var(--gold)' }}>VÉHICULE SOUHAITÉ</label>
-                    <select style={{ width: '100%', background: '#000', border: '1px solid #333', color: 'white', padding: '15px' }}>
-                      {cars.map(c => <option key={c.id}>{c.name}</option>)}
-                    </select>
+                    <label style={{ display: 'block', marginBottom: '10px', fontSize: '0.8rem', color: 'var(--gold)' }}>DATE DE FIN</label>
+                    <input type="date" value={formData.endDate} onChange={e => setFormData({...formData, endDate: e.target.value})} style={{ width: '100%', background: '#000', border: '1px solid #333', color: 'white', padding: '15px' }} />
                   </div>
                 </div>
                 <button className="btn-primary" style={{ width: '100%' }} onClick={() => setStep(2)}>Continuer</button>
@@ -218,32 +205,16 @@ const Booking = () => {
             )}
 
             {step === 2 && (
-              <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '30px' }}>
-                  <div>
-                    <label style={{ display: 'block', marginBottom: '10px', fontSize: '0.8rem', color: 'var(--gold)' }}>DATE DE DÉBUT</label>
-                    <input type="date" style={{ width: '100%', background: '#000', border: '1px solid #333', color: 'white', padding: '15px' }} />
-                  </div>
-                  <div>
-                    <label style={{ display: 'block', marginBottom: '10px', fontSize: '0.8rem', color: 'var(--gold)' }}>DATE DE FIN</label>
-                    <input type="date" style={{ width: '100%', background: '#000', border: '1px solid #333', color: 'white', padding: '15px' }} />
-                  </div>
+              <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
+                <div style={{ display: 'grid', gap: '20px', marginBottom: '30px' }}>
+                  <input placeholder="Nom Complet" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} style={{ width: '100%', background: '#000', border: '1px solid #333', color: 'white', padding: '15px' }} />
+                  <input placeholder="Email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} style={{ width: '100%', background: '#000', border: '1px solid #333', color: 'white', padding: '15px' }} />
+                  <input placeholder="Téléphone" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} style={{ width: '100%', background: '#000', border: '1px solid #333', color: 'white', padding: '15px' }} />
                 </div>
                 <div style={{ display: 'flex', gap: '15px' }}>
                   <button style={{ flex: 1, background: 'transparent', border: '1px solid #333', color: 'white', padding: '15px' }} onClick={() => setStep(1)}>Retour</button>
-                  <button className="btn-primary" style={{ flex: 2 }} onClick={() => setStep(3)}>Détails du Client</button>
+                  <button className="btn-primary" style={{ flex: 2 }} onClick={handleWhatsApp}>Réserver via WhatsApp</button>
                 </div>
-              </motion.div>
-            )}
-
-            {step === 3 && (
-              <motion.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-                <div style={{ display: 'grid', gap: '20px', marginBottom: '30px' }}>
-                  <input placeholder="Nom Complet" style={{ width: '100%', background: '#000', border: '1px solid #333', color: 'white', padding: '15px' }} />
-                  <input placeholder="Email" style={{ width: '100%', background: '#000', border: '1px solid #333', color: 'white', padding: '15px' }} />
-                  <input placeholder="Téléphone" style={{ width: '100%', background: '#000', border: '1px solid #333', color: 'white', padding: '15px' }} />
-                </div>
-                <button className="btn-primary" style={{ width: '100%' }} onClick={() => alert('Réservation envoyée ! Nous vous contacterons sous peu.')}>Confirmer la Réservation</button>
               </motion.div>
             )}
           </AnimatePresence>
@@ -260,14 +231,13 @@ const App = () => {
 
   return (
     <div className="app">
-      <Navbar activePage={page} setPage={setPage} />
+      <Navbar activePage={page.startsWith('booking') ? 'booking' : page} setPage={setPage} />
       
       <main>
         {page === 'home' && <Home setPage={setPage} />}
         {page === 'fleet' && <Fleet setPage={setPage} />}
-        {page === 'booking' && <Booking />}
+        {page.startsWith('booking') && <Booking selectedCarId={page.includes('-') ? Number(page.split('-')[1]) : undefined} />}
         
-        {/* Common sections for some pages */}
         {(page === 'home' || page === 'services') && (
           <section id="services" style={{ background: 'var(--darker-bg)' }}>
             <div className="container">
@@ -299,16 +269,14 @@ const App = () => {
                 CHAROKI<span className="gold-text">CARS</span>
               </div>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.6 }}>
-                L'excellence de la location de voitures de luxe au Maroc. Voyagez avec élégance.
+                L'excellence de la location de voitures de luxe à Casablanca. Voyagez avec élégance.
               </p>
             </div>
             <div>
-              <h4 style={{ marginBottom: '20px', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '1px' }}>Villes</h4>
+              <h4 style={{ marginBottom: '20px', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '1px' }}>Localisation</h4>
               <ul style={{ listStyle: 'none', color: 'var(--text-secondary)', fontSize: '0.9rem', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                <li>Marrakech</li>
-                <li>Casablanca</li>
-                <li>Tanger</li>
-                <li>Agadir</li>
+                <li>Casablanca, Maroc</li>
+                <li>Ouvert 24/7</li>
               </ul>
             </div>
             <div>
@@ -321,7 +289,7 @@ const App = () => {
             </div>
           </div>
           <div style={{ textAlign: 'center', borderTop: '1px solid #111', paddingTop: '40px', color: 'var(--text-secondary)', fontSize: '0.8rem' }}>
-            &copy; 2024 CHAROKI CARS MAROC. Tous droits réservés.
+            &copy; 2024 CHAROKI CARS CASABLANCA. Tous droits réservés.
           </div>
         </div>
       </footer>
