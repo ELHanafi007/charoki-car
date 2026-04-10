@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Clock, Phone, Instagram, Facebook, Twitter, type LucideProps, User, Settings, Star, CheckCircle, MapPin, Award, Zap, Briefcase } from 'lucide-react';
+import { Shield, Clock, Phone, Instagram, Facebook, Twitter, type LucideProps, User, Settings, Star, CheckCircle, MapPin, Award, Zap, Briefcase, Search, Calendar } from 'lucide-react';
 
 // --- DATA ---
 const cars = [
@@ -222,7 +222,7 @@ const Home = ({ setPage }: { setPage: (p: string) => void }) => (
                 style={{ textAlign: 'center' }}
             >
               <div style={{ color: 'var(--gold)', marginBottom: '30px', background: 'rgba(212, 175, 55, 0.05)', width: '80px', height: '80px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 30px' }}>
-                {React.cloneElement(step.icon as React.ReactElement, { size: 32 })}
+                {React.cloneElement(step.icon as React.ReactElement<LucideProps>, { size: 32 })}
               </div>
               <h3 style={{ marginBottom: '20px', fontSize: '1.5rem' }}>{step.title}</h3>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8 }}>{step.desc}</p>
@@ -498,7 +498,7 @@ const App = () => {
                 ].map((service, idx) => (
                   <motion.div key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.2 }} style={{ textAlign: 'center' }}>
                     <div style={{ color: 'var(--gold)', marginBottom: '30px' }}>
-                      {React.cloneElement(service.icon as React.ReactElement, { size: 40 })}
+                      {React.cloneElement(service.icon as React.ReactElement<LucideProps>, { size: 40 })}
                     </div>
                     <h3 style={{ marginBottom: '20px', fontSize: '1.4rem' }}>{service.title}</h3>
                     <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8 }}>{service.desc}</p>
