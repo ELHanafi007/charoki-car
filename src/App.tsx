@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Car, Calendar, MapPin, Shield, Clock, Phone, Instagram, Facebook, Twitter, ChevronRight, Menu, X, type LucideProps, Search, Star, User, Settings, Info } from 'lucide-react';
+import { Shield, Clock, Phone, Instagram, Facebook, Twitter, type LucideProps, User, Settings } from 'lucide-react';
 
 // --- DATA ---
 const cars = [
