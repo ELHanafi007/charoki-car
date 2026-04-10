@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'react-framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Shield, Clock, Phone, Instagram, Facebook, Twitter, type LucideProps, User, Settings } from 'lucide-react';
 
 // --- DATA ---
