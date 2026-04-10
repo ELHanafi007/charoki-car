@@ -161,6 +161,118 @@ section {
   transform: translateY(30px);
 }
 
-.fade-in {
-  opacity: 0;
+/* Mobile Responsive Adjustments */
+@media (max-width: 1024px) {
+  .hero h1 {
+    font-size: 4rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 80px 0;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  .hero {
+    height: 90vh;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 3rem !important;
+  }
+
+  .hero p {
+    font-size: 1rem !important;
+    margin: 0 auto 40px !important;
+  }
+
+  .hero .desktop-flex {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .hero button {
+    width: 100%;
+  }
+
+  .desktop-menu {
+    display: none !important;
+  }
+
+  .mobile-toggle {
+    display: block !important;
+  }
+
+  .car-card {
+    margin-bottom: 20px;
+  }
+
+  .car-image {
+    height: 220px;
+  }
+
+  .booking-grid {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+
+  .section-title h2 {
+    font-size: 2.2rem !important;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+    text-align: center;
+  }
+
+  .footer-grid div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .input-field {
+    padding: 15px;
+    font-size: 16px !important; /* Prevents auto-zoom on iOS */
+  }
+
+  .btn-primary {
+    padding: 14px 28px;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Mobile Menu Styles */
+.mobile-nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: var(--darker-bg);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.mobile-link {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: white;
+  text-decoration: none;
+  letter-spacing: 2px;
+}
+
+.mobile-link.active {
+  color: var(--gold);
 }
