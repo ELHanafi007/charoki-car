@@ -2,8 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Phone, Zap, Fuel, 
-  Menu, X, ArrowLeft, LayoutDashboard, 
-  Plus, Trash2, ChevronRight, Star,
+  Menu, X, ArrowLeft, ChevronRight, Star,
   ShieldCheck, Clock, MapPin, MessageCircle,
   ChevronDown, Instagram, Facebook, Mail
 } from 'lucide-react';
@@ -125,7 +124,7 @@ const SectionTitle = ({ title, subtitle, centered = true }: { title: string, sub
   </div>
 );
 
-const Navbar = ({ activePage, setPage, onAdminClick }: { activePage: string, setPage: (p: string) => void, onAdminClick: () => void }) => {
+const Navbar = ({ activePage, setPage }: { activePage: string, setPage: (p: string) => void }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
@@ -153,7 +152,6 @@ const Navbar = ({ activePage, setPage, onAdminClick }: { activePage: string, set
               <span key={item.id} onClick={() => setPage(item.id)} style={{ color: (activePage === item.id || (activePage.startsWith('product') && item.id === 'fleet')) ? 'var(--gold)' : 'inherit', cursor: 'pointer', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '1px' }}>{item.label}</span>
             ))}
             <button className="btn-primary" onClick={() => setPage('booking')} style={{ padding: '8px 20px', fontSize: '0.65rem' }}>RÉSERVER</button>
-            <div onClick={onAdminClick} style={{ cursor: 'pointer', color: '#555', marginLeft: '10px' }}><LayoutDashboard size={18} /></div>
           </div>
           <div className="mobile-toggle" style={{ display: 'none', cursor: 'pointer' }} onClick={() => setIsMobileMenuOpen(true)}>
              <Menu size={24} color="white" />
@@ -168,7 +166,6 @@ const Navbar = ({ activePage, setPage, onAdminClick }: { activePage: string, set
               <span key={item.id} className={`mobile-link ${activePage === item.id ? 'active' : ''}`} onClick={() => { setPage(item.id); setIsMobileMenuOpen(false); }}>{item.label}</span>
             ))}
             <button className="btn-primary" style={{ marginTop: '20px', width: 'auto' }} onClick={() => { setPage('booking'); setIsMobileMenuOpen(false); }}>RÉSERVER</button>
-            <div onClick={() => { onAdminClick(); setIsMobileMenuOpen(false); }} style={{ marginTop: '40px', color: '#555', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.8rem', cursor: 'pointer' }}><LayoutDashboard size={16} /> ACCÈS ADMIN</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -491,167 +488,9 @@ const Booking = ({ selectedCarId, start, end, cars }: { selectedCarId?: number, 
   );
 };
 
-const AdminDashboard = ({ cars, onUpdateCar, setPage }: { cars: Car[], onUpdateCar: (c: Car[]) => void, setPage: (p: string) => void }) => {
-  const [isAdding, setIsAdding] = useState(false);
-  const [editingCarId, setEditingCarId] = useState<number | null>(null);
-  const [newCar, setNewCar] = useState<Partial<Car>>({ brand: '', name: '', price: 0, category: 'Citadine', status: 'disponible', image: '' });
-  const [editCarData, setEditCarData] = useState<Partial<Car>>({});
-
-  const handleAdd = () => {
-    if (!newCar.brand || !newCar.name || !newCar.price) {
-      alert("Veuillez remplir les champs obligatoires.");
-      return;
-    }
-    const carToAdd = { 
-      ...newCar, 
-      id: Date.now(), 
-      specs: ["Automatique", "5 Sièges"], 
-      engine: "1.5L", 
-      transmission: "Auto", 
-      fuel: "Diesel", 
-      details: "Détails à compléter", 
-      fullDescription: "Description complète à compléter" 
-    } as Car;
-    onUpdateCar([...cars, carToAdd]);
-    setIsAdding(false);
-    setNewCar({ brand: '', name: '', price: 0, category: 'Citadine', status: 'disponible', image: '' });
-  };
-
-  const startEdit = (car: Car) => {
-    setEditingCarId(car.id);
-    setEditCarData(car);
-  };
-
-  const handleSaveEdit = () => {
-    const updated = cars.map(c => c.id === editingCarId ? { ...c, ...editCarData } : c);
-    onUpdateCar(updated);
-    setEditingCarId(null);
-  };
-
-  const deleteCar = (id: number) => {
-    if (confirm("Supprimer ce véhicule du parc ?")) onUpdateCar(cars.filter(c => c.id !== id));
-  };
-
-  const toggleStatus = (id: number) => {
-    const updated = cars.map(c => {
-      if (c.id === id) {
-        if (c.status === 'disponible') return { ...c, status: 'loué' as const, availableFrom: new Date(Date.now() + 7 * 86400000).toISOString().split('T')[0] };
-        if (c.status === 'loué') return { ...c, status: 'archive' as const };
-        return { ...c, status: 'disponible' as const, availableFrom: undefined };
-      }
-      return c;
-    });
-    onUpdateCar(updated);
-  };
-
-  return (
-    <section style={{ paddingTop: '150px' }}>
-      <div className="container">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '50px', flexWrap: 'wrap', gap: '20px' }}>
-          <h1 style={{ fontSize: '2.5rem', fontFamily: 'var(--font-serif)' }}>Gestion <span className="gold-text">du Parc</span></h1>
-          <div style={{ display: 'flex', gap: '15px' }}>
-            <button className="btn-primary" style={{ width: 'auto', background: '#222', color: 'white' }} onClick={() => setPage('home')}>VOIR LE SITE</button>
-            <button className="btn-primary" style={{ width: 'auto' }} onClick={() => { setIsAdding(true); setEditingCarId(null); }}><Plus size={18} /> AJOUTER UN VÉHICULE</button>
-          </div>
-        </div>
-
-        {isAdding && (
-          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} style={{ background: 'var(--card-bg)', padding: '40px', marginBottom: '50px', border: '1px solid var(--gold)' }}>
-            <h2 style={{ marginBottom: '30px', fontFamily: 'var(--font-serif)' }}>Ajouter un véhicule</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '25px', marginBottom: '30px' }}>
-              <div><label className="label-text">MARQUE</label><input placeholder="Ex: Hyundai" className="input-field" onChange={e => setNewCar({...newCar, brand: e.target.value})} /></div>
-              <div><label className="label-text">MODÈLE</label><input placeholder="Ex: Tucson" className="input-field" onChange={e => setNewCar({...newCar, name: e.target.value})} /></div>
-              <div><label className="label-text">PRIX / JOUR (MAD)</label><input placeholder="Ex: 600" type="number" className="input-field" onChange={e => setNewCar({...newCar, price: Number(e.target.value)})} /></div>
-              <div><label className="label-text">IMAGE URL</label><input placeholder="Lien Unsplash ou autre" className="input-field" onChange={e => setNewCar({...newCar, image: e.target.value})} /></div>
-              <div>
-                <label className="label-text">CATÉGORIE</label>
-                <select className="input-field" style={{ appearance: 'none' }} onChange={e => setNewCar({...newCar, category: e.target.value})}>
-                  <option value="Citadine">Citadine</option>
-                  <option value="SUV">SUV</option>
-                  <option value="Berline">Berline</option>
-                </select>
-              </div>
-            </div>
-            <div style={{ display: 'flex', gap: '15px' }}>
-              <button className="btn-primary" onClick={handleAdd}>ENREGISTRER</button>
-              <button style={{ background: 'transparent', border: 'none', color: '#555', fontWeight: 700, cursor: 'pointer' }} onClick={() => setIsAdding(false)}>ANNULER</button>
-            </div>
-          </motion.div>
-        )}
-
-        {editingCarId && (
-          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} style={{ background: 'var(--card-bg)', padding: '40px', marginBottom: '50px', border: '1px solid var(--gold)' }}>
-            <h2 style={{ marginBottom: '30px', fontFamily: 'var(--font-serif)' }}>Modifier {editCarData.name}</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '25px', marginBottom: '30px' }}>
-              <div><label className="label-text">PRIX / JOUR</label><input type="number" className="input-field" value={editCarData.price} onChange={e => setEditCarData({...editCarData, price: Number(e.target.value)})} /></div>
-              <div><label className="label-text">MOTEUR</label><input className="input-field" value={editCarData.engine} onChange={e => setEditCarData({...editCarData, engine: e.target.value})} /></div>
-              <div><label className="label-text">TRANSMISSION</label><input className="input-field" value={editCarData.transmission} onChange={e => setEditCarData({...editCarData, transmission: e.target.value})} /></div>
-              <div><label className="label-text">CARBURANT</label><input className="input-field" value={editCarData.fuel} onChange={e => setEditCarData({...editCarData, fuel: e.target.value})} /></div>
-            </div>
-            <div style={{ marginBottom: '30px' }}>
-              <label className="label-text">DESCRIPTION COMPLÈTE</label>
-              <textarea className="input-field" rows={4} style={{ resize: 'vertical' }} value={editCarData.fullDescription} onChange={e => setEditCarData({...editCarData, fullDescription: e.target.value})} />
-            </div>
-            <div style={{ display: 'flex', gap: '15px' }}>
-              <button className="btn-primary" onClick={handleSaveEdit}>SAUVEGARDER</button>
-              <button style={{ background: 'transparent', border: 'none', color: '#555', fontWeight: 700, cursor: 'pointer' }} onClick={() => setEditingCarId(null)}>ANNULER</button>
-            </div>
-          </motion.div>
-        )}
-        <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', color: 'white', background: 'var(--card-bg)', fontSize: '0.9rem', border: '1px solid var(--border-color)' }}>
-            <thead>
-              <tr style={{ textAlign: 'left', borderBottom: '2px solid #333', background: 'rgba(212, 175, 55, 0.05)' }}>
-                <th style={{ padding: '20px' }}>VÉHICULE</th>
-                <th style={{ padding: '20px' }}>CATÉGORIE</th>
-                <th style={{ padding: '20px' }}>PRIX</th>
-                <th style={{ padding: '20px' }}>STATUT</th>
-                <th style={{ padding: '20px', textAlign: 'right' }}>ACTIONS</th>
-              </tr>
-            </thead>
-            <tbody>
-              {cars.map(car => (
-                <tr key={car.id} style={{ borderBottom: '1px solid #222' }}>
-                  <td style={{ padding: '20px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                      <div style={{ width: '60px', height: '40px', backgroundImage: `url(${car.image})`, backgroundSize: 'cover', backgroundPosition: 'center', border: '1px solid #333' }}></div>
-                      <div>
-                        <div style={{ fontWeight: 700 }}>{car.name}</div>
-                        <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>{car.brand}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td style={{ padding: '20px' }}>{car.category}</td>
-                  <td style={{ padding: '20px', fontWeight: 700, color: 'var(--gold)' }}>{car.price} MAD</td>
-                  <td style={{ padding: '20px' }}>
-                    <span onClick={() => toggleStatus(car.id)} style={{ cursor: 'pointer', padding: '4px 12px', fontSize: '0.65rem', fontWeight: 700, background: car.status === 'disponible' ? '#4CAF50' : (car.status === 'loué' ? 'var(--gold)' : '#333'), color: car.status === 'disponible' ? 'white' : 'black', textTransform: 'uppercase', letterSpacing: '1px' }}>{car.status}</span>
-                  </td>
-                  <td style={{ padding: '20px', textAlign: 'right' }}>
-                    <div style={{ display: 'flex', gap: '15px', justifyContent: 'flex-end' }}>
-                      <button onClick={() => startEdit(car)} style={{ background: 'transparent', border: 'none', color: 'var(--gold)', cursor: 'pointer', opacity: 0.7 }} title="Modifier"><LayoutDashboard size={20} /></button>
-                      <button onClick={() => deleteCar(car.id)} style={{ background: 'transparent', border: 'none', color: '#ff4444', cursor: 'pointer', opacity: 0.7 }} title="Supprimer"><Trash2 size={20} /></button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-  );
-};
-
 const App = () => {
   const [page, setPage] = useState('home');
-  const [cars, setCars] = useState<Car[]>(() => {
-    const saved = localStorage.getItem('charoki_fleet');
-    return saved ? JSON.parse(saved) : INITIAL_CARS;
-  });
-
-  useEffect(() => {
-    localStorage.setItem('charoki_fleet', JSON.stringify(cars));
-  }, [cars]);
+  const [cars] = useState<Car[]>(INITIAL_CARS);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -659,13 +498,12 @@ const App = () => {
 
   return (
     <div className="app">
-      <Navbar activePage={page} setPage={setPage} onAdminClick={() => setPage('admin')} />
+      <Navbar activePage={page} setPage={setPage} />
       <main>
         <AnimatePresence mode="wait">
           {page === 'home' && <motion.div key="home" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}><Home setPage={setPage} cars={cars} /></motion.div>}
           {page === 'fleet' && <motion.div key="fleet" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}><Fleet setPage={setPage} cars={cars} /></motion.div>}
           {page === 'contact' && <motion.div key="contact" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}><Contact /></motion.div>}
-          {page === 'admin' && <motion.div key="admin" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}><AdminDashboard cars={cars} onUpdateCar={setCars} setPage={setPage} /></motion.div>}
           {page === 'booking' && <motion.div key="booking-gen" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}><Booking cars={cars} /></motion.div>}
           {page.startsWith('booking-') && <motion.div key="booking-car" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}><Booking cars={cars} selectedCarId={Number(page.split('-')[1])} start={page.split('-')[2]} end={page.split('-')[3]} /></motion.div>}
           {page.startsWith('product-') && <motion.div key="product" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}><ProductPage carId={Number(page.split('-')[1])} setPage={setPage} cars={cars} /></motion.div>}
