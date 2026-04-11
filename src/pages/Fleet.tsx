@@ -5,8 +5,7 @@ import SectionTitle from '../components/SectionTitle';
 import CarCard from '../components/CarCard';
 
 const Fleet: React.FC = () => {
-  const { t, i18n } = useTranslation();
-  const lang = (i18n.language as Language) || 'fr';
+  const { t } = useTranslation();
   const { cars } = useCars();
   const [filter, setFilter] = useState('all');
 

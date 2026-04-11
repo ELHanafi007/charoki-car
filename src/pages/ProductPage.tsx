@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, ShieldCheck, Clock, MapPin } from 'lucide-react';
 import { useCars } from '../context/CarContext';
 import DateSelectionBar from '../components/DateSelectionBar';
+import type { Language } from '../types';
 
 const ProductPage: React.FC = () => {
   const { t, i18n } = useTranslation();

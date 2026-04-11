@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Zap, Fuel, ArrowUpRight } from 'lucide-react';
-import type { Car } from '../types';
+import type { Car, Language } from '../types';
 
 interface CarCardProps {
   car: Car;

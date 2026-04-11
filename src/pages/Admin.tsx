@@ -3,6 +3,7 @@ import { useCars } from '../context/CarContext';
 import { useTranslation } from 'react-i18next';
 import { Shield, Save, Settings, LogOut, Car as CarIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
+import type { Language } from '../types';
 
 const ADMIN_CODE = "15139922";
 
