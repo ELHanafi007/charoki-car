@@ -22,7 +22,16 @@ const CarCard: React.FC<CarCardProps> = ({ car }) => {
     >
       <Link to={`/car/${car.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
         <div className="image-wrapper" style={{ overflow: 'hidden', position: 'relative' }}>
-          <img src={car.image} alt={car.name} style={{ transition: 'transform 1s cubic-bezier(0.16, 1, 0.3, 1)' }} onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'} onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'} />
+          <img 
+            src={car.image + "&fm=webp"} 
+            alt={`Charoki Car Rental: ${car.name}`} 
+            style={{ transition: 'transform 1s cubic-bezier(0.16, 1, 0.3, 1)' }} 
+            onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'} 
+            onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'} 
+            loading="lazy"
+            width="400"
+            height="267"
+          />
           {car.status === 'loué' && (
             <div style={{ position: 'absolute', top: '20px', right: '20px', background: 'rgba(230, 126, 34, 0.9)', color: '#fff', padding: '5px 15px', fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em' }}>
               {t('car.unavailable').split(' ')[0]} {/* simplified status */}

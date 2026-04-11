@@ -46,7 +46,13 @@ const ProductPage: React.FC = () => {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '80px' }}>
           <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}>
-            <img src={car.image} alt={car.name} style={{ width: '100%', height: '550px', objectFit: 'cover', border: '1px solid var(--border)' }} />
+            <img 
+              src={car.image + "&fm=webp"} 
+              alt={`Charoki Car Rental: ${car.name} luxury vehicle`} 
+              style={{ width: '100%', height: '550px', objectFit: 'cover', border: '1px solid var(--border)' }} 
+              width="800"
+              height="550"
+            />
             <div style={{ marginTop: '50px' }}>
               <div style={{ color: 'var(--accent)', fontWeight: 800, fontSize: '0.7rem', letterSpacing: '0.3em', marginBottom: '15px' }}>{car.brand.toUpperCase()}</div>
               <h1 style={{ fontSize: '4rem', marginBottom: '25px' }}>{car.name}</h1>

@@ -18,9 +18,9 @@ const Footer: React.FC = () => {
               {t('hero.subtitle')}
             </p>
             <div style={{ display: 'flex', gap: '25px' }}>
-              <Instagram size={18} style={{ opacity: 0.6, cursor: 'pointer' }} />
-              <Facebook size={18} style={{ opacity: 0.6, cursor: 'pointer' }} />
-              <MessageCircle size={18} style={{ opacity: 0.6, cursor: 'pointer' }} />
+              <Link to="#" aria-label="Follow Charoki Car on Instagram"><Instagram size={18} style={{ opacity: 0.6, cursor: 'pointer' }} /></Link>
+              <Link to="#" aria-label="Follow Charoki Car on Facebook"><Facebook size={18} style={{ opacity: 0.6, cursor: 'pointer' }} /></Link>
+              <Link to="#" aria-label="Contact Charoki Car on WhatsApp"><MessageCircle size={18} style={{ opacity: 0.6, cursor: 'pointer' }} /></Link>
             </div>
           </div>
           <div>

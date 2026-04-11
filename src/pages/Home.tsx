@@ -13,18 +13,16 @@ const Hero: React.FC = () => {
   
   return (
     <section className="premium-hero" style={{ height: '100vh', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#000' }}>
-      <motion.div 
-        initial={{ scale: 1.1, opacity: 0 }}
-        animate={{ scale: 1, opacity: 0.6 }}
-        transition={{ duration: 2, ease: "easeOut" }}
-        style={{ 
-          position: 'absolute', 
-          inset: 0, 
-          backgroundImage: `url(https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&q=80&w=2070)`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
-        }} 
-      />
+      <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+        <img 
+          src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&q=80&w=2070&fm=webp" 
+          alt="Charoki Car Luxury Rental Hero"
+          style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.6 }}
+          fetchPriority="high"
+          width="2070"
+          height="1380"
+        />
+      </div>
       <div className="container" style={{ position: 'relative', zIndex: 2, textAlign: 'center' }}>
         <motion.div
           initial={{ y: 50, opacity: 0 }}
@@ -73,16 +71,23 @@ const Home: React.FC = () => {
               <div style={{ display: 'grid', gap: '30px' }}>
                 <div style={{ display: 'flex', gap: '20px' }}>
                   <ShieldCheck color="var(--accent)" size={28} />
-                  <div><h4 style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '5px' }}>{t('sections.serenity_title')}</h4><p style={{ fontSize: '0.9rem' }}>{t('sections.serenity_text')}</p></div>
+                  <div><h3 style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '5px' }}>{t('sections.serenity_title')}</h3><p style={{ fontSize: '0.9rem' }}>{t('sections.serenity_text')}</p></div>
                 </div>
                 <div style={{ display: 'flex', gap: '20px' }}>
                   <MapPin color="var(--accent)" size={28} />
-                  <div><h4 style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '5px' }}>{t('sections.delivery_title')}</h4><p style={{ fontSize: '0.9rem' }}>{t('sections.delivery_text')}</p></div>
+                  <div><h3 style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '5px' }}>{t('sections.delivery_title')}</h3><p style={{ fontSize: '0.9rem' }}>{t('sections.delivery_text')}</p></div>
                 </div>
               </div>
             </div>
             <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} style={{ position: 'relative', padding: '20px' }}>
-              <img src="https://images.unsplash.com/photo-1469033092076-096ff723f901?auto=format&fit=crop&q=80&w=1000" style={{ width: '100%', position: 'relative', zIndex: 1, boxShadow: '0 10px 40px rgba(0,0,0,0.04)' }} alt="Luxury Interior" />
+              <img 
+                src="https://images.unsplash.com/photo-1469033092076-096ff723f901?auto=format&fit=crop&q=80&w=1000&fm=webp" 
+                style={{ width: '100%', position: 'relative', zIndex: 1, boxShadow: '0 10px 40px rgba(0,0,0,0.04)' }} 
+                alt="Charoki Car Excellence and Luxury" 
+                loading="lazy"
+                width="1000"
+                height="667"
+              />
             </motion.div>
           </div>
         </div>
@@ -114,27 +119,30 @@ const Home: React.FC = () => {
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        import CarCard from '../components/CarCard';
+        import SEOContent from '../components/SEOContent';
+        import { TESTIMONIALS, FAQS } from '../data/constants';
+        ...
+              <section style={{ padding: '140px 0', background: 'var(--bg-secondary)', borderTop: '1px solid var(--border)' }}>
+                <div className="container">
+                  <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+                    <SectionTitle title={t('sections.faq')} subtitle={t('sections.faq')} />
+                    {FAQS.map((faq, i) => (
+                      <details key={i} style={{ borderBottom: '1px solid var(--border)', padding: '25px 0', cursor: 'pointer' }}>
+                        <summary style={{ listStyle: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '1.1rem', fontWeight: 600 }}>
+                          {faq.question}
+                          <ChevronDown size={18} color="var(--accent)" />
+                        </summary>
+                        <p style={{ marginTop: '20px', fontSize: '0.95rem', lineHeight: 1.7 }}>{faq.answer}</p>
+                      </details>
+                    ))}
+                  </div>
+                </div>
+              </section>
 
-      <section style={{ padding: '140px 0', background: 'var(--bg-secondary)', borderTop: '1px solid var(--border)' }}>
-        <div className="container">
-          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-            <SectionTitle title={t('sections.faq')} subtitle={t('sections.faq')} />
-            {FAQS.map((faq, i) => (
-              <details key={i} style={{ borderBottom: '1px solid var(--border)', padding: '25px 0', cursor: 'pointer' }}>
-                <summary style={{ listStyle: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '1.1rem', fontWeight: 600 }}>
-                  {faq.question}
-                  <ChevronDown size={18} color="var(--accent)" />
-                </summary>
-                <p style={{ marginTop: '20px', fontSize: '0.95rem', lineHeight: 1.7 }}>{faq.answer}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-    </motion.div>
-  );
-};
+              <SEOContent />
+            </motion.div>
+          );
+        };
 
 export default Home;
