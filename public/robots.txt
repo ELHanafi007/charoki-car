@@ -5,4 +5,4 @@ Disallow: /admin/*
 Disallow: /booking
 Disallow: /booking/*
 
-Sitemap: https://charokicar.com/sitemap.xml
+Sitemap: https://charoki-car.vercel.app/sitemap.xml
