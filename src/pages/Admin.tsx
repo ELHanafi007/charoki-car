@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useCars } from '../context/CarContext';
+import { useTranslation } from 'react-i18next';
 import { Shield, Save, Settings, LogOut, Car as CarIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const ADMIN_CODE = "15139922";
 
 const Admin: React.FC = () => {
+  const { t } = useTranslation();
   const [code, setCode] = useState('');
   const [isAuthorized, setIsAuthorized] = useState(false);
   const { cars, updateCarPrice, updateCarStatus } = useCars();
@@ -37,17 +39,17 @@ const Admin: React.FC = () => {
           <div style={{ width: '60px', height: '60px', background: 'var(--bg-secondary)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 30px' }}>
             <Shield size={30} color="var(--accent)" />
           </div>
-          <h2 className="serif" style={{ fontSize: '2rem', marginBottom: '10px' }}>Espace Administrateur</h2>
-          <p style={{ fontSize: '0.85rem', marginBottom: '30px', opacity: 0.6 }}>Veuillez saisir votre code d'accès pour continuer.</p>
+          <h2 className="serif" style={{ fontSize: '2rem', marginBottom: '10px' }}>{t('admin.title')}</h2>
+          <p style={{ fontSize: '0.85rem', marginBottom: '30px', opacity: 0.6 }}>{t('admin.subtitle')}</p>
           <form onSubmit={handleLogin} style={{ display: 'grid', gap: '20px' }}>
             <input 
               type="password" 
-              placeholder="Code d'accès"
+              placeholder={t('admin.placeholder')}
               value={code}
               onChange={(e) => setCode(e.target.value)}
               style={{ padding: '15px', border: '1px solid var(--border)', fontSize: '1rem', textAlign: 'center', letterSpacing: '0.5em' }}
             />
-            <button className="btn-primary" type="submit" style={{ width: '100%' }}>SE CONNECTER</button>
+            <button className="btn-primary" type="submit" style={{ width: '100%' }}>{t('admin.login')}</button>
           </form>
         </motion.div>
       </div>
@@ -59,51 +61,49 @@ const Admin: React.FC = () => {
       <div className="container">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '60px' }}>
           <div>
-            <span style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--accent)', letterSpacing: '0.2em' }}>TABLEAU DE BORD</span>
-            <h1 style={{ fontSize: '3rem', marginTop: '10px' }}>Gestion de la Flotte</h1>
+            <span style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--accent)', letterSpacing: '0.2em' }}>{t('admin.dashboard')}</span>
+            <h1 style={{ fontSize: '3rem', marginTop: '10px' }}>{t('admin.manage')}</h1>
           </div>
           <button onClick={() => setIsAuthorized(false)} style={{ border: 'none', background: 'none', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontWeight: 700, fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-            <LogOut size={16} /> DÉCONNEXION
+            <LogOut size={16} /> {t('admin.logout')}
           </button>
         </div>
 
-        {/* Stats Section */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '40px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '40px' }}>
           <div style={{ background: '#fff', padding: '25px', border: '1px solid var(--border)' }}>
-            <div style={{ color: 'var(--text-secondary)', fontSize: '0.65rem', fontWeight: 700, marginBottom: '10px' }}>VÉHICULES TOTAUX</div>
+            <div style={{ color: 'var(--text-secondary)', fontSize: '0.65rem', fontWeight: 700, marginBottom: '10px' }}>{t('admin.total')}</div>
             <div style={{ fontSize: '1.8rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '10px' }}>
               <CarIcon size={24} color="var(--accent)" /> {cars.length}
             </div>
           </div>
           <div style={{ background: '#fff', padding: '25px', border: '1px solid var(--border)' }}>
-            <div style={{ color: 'var(--text-secondary)', fontSize: '0.65rem', fontWeight: 700, marginBottom: '10px' }}>DISPONIBLES</div>
+            <div style={{ color: 'var(--text-secondary)', fontSize: '0.65rem', fontWeight: 700, marginBottom: '10px' }}>{t('admin.available')}</div>
             <div style={{ fontSize: '1.8rem', fontWeight: 700, color: '#27ae60' }}>
               {cars.filter(c => c.status === 'disponible').length}
             </div>
           </div>
           <div style={{ background: '#fff', padding: '25px', border: '1px solid var(--border)' }}>
-            <div style={{ color: 'var(--text-secondary)', fontSize: '0.65rem', fontWeight: 700, marginBottom: '10px' }}>LOUÉS</div>
+            <div style={{ color: 'var(--text-secondary)', fontSize: '0.65rem', fontWeight: 700, marginBottom: '10px' }}>{t('admin.rented')}</div>
             <div style={{ fontSize: '1.8rem', fontWeight: 700, color: '#e67e22' }}>
               {cars.filter(c => c.status === 'loué').length}
             </div>
           </div>
           <div style={{ background: '#fff', padding: '25px', border: '1px solid var(--border)' }}>
-            <div style={{ color: 'var(--text-secondary)', fontSize: '0.65rem', fontWeight: 700, marginBottom: '10px' }}>PRIX MOYEN / JOUR</div>
+            <div style={{ color: 'var(--text-secondary)', fontSize: '0.65rem', fontWeight: 700, marginBottom: '10px' }}>{t('admin.avg_price')}</div>
             <div style={{ fontSize: '1.8rem', fontWeight: 700 }}>
               {Math.round(cars.reduce((acc, c) => acc + c.price, 0) / cars.length)} MAD
             </div>
           </div>
         </div>
 
-        {/* Inventory List */}
-        <div style={{ background: '#fff', border: '1px solid var(--border)', overflow: 'hidden' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+        <div style={{ background: '#fff', border: '1px solid var(--border)', overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
             <thead style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border)' }}>
               <tr>
-                <th style={{ padding: '20px 30px', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.1em' }}>VÉHICULE</th>
-                <th style={{ padding: '20px 30px', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.1em' }}>PRIX (MAD)</th>
-                <th style={{ padding: '20px 30px', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.1em' }}>STATUT</th>
-                <th style={{ padding: '20px 30px', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.1em', textAlign: 'right' }}>ACTIONS</th>
+                <th style={{ padding: '20px 30px', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.1em' }}>{t('admin.vehicle')}</th>
+                <th style={{ padding: '20px 30px', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.1em' }}>{t('admin.price')} (MAD)</th>
+                <th style={{ padding: '20px 30px', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.1em' }}>{t('admin.status')}</th>
+                <th style={{ padding: '20px 30px', fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.1em', textAlign: 'right' }}>{t('admin.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -150,7 +150,7 @@ const Admin: React.FC = () => {
                           cursor: 'pointer'
                         }}
                       >
-                        DISPONIBLE
+                        {t('admin.disp')}
                       </button>
                       <button 
                         onClick={() => updateCarStatus(car.id, 'loué')}
@@ -164,12 +164,12 @@ const Admin: React.FC = () => {
                           cursor: 'pointer'
                         }}
                       >
-                        LOUÉ
+                        {t('admin.rent')}
                       </button>
                     </div>
                   </td>
                   <td style={{ padding: '25px 30px', textAlign: 'right' }}>
-                    <button style={{ border: 'none', background: 'none', opacity: 0.4, cursor: 'not-allowed' }}>Modifier</button>
+                    <button style={{ border: 'none', background: 'none', opacity: 0.4, cursor: 'not-allowed' }}>{t('admin.edit')}</button>
                   </td>
                 </tr>
               ))}

@@ -79,6 +79,26 @@ const resources = {
         "hours_text": "09:00 - 20:00 • Mon - Sat",
         "text": "Our team is at your disposal to advise you and organize your tailor-made mobility in Casablanca.",
         "whatsapp": "START ON WHATSAPP"
+      },
+      "admin": {
+        "title": "Admin Space",
+        "subtitle": "Please enter your access code to continue.",
+        "placeholder": "Access Code",
+        "login": "LOGIN",
+        "dashboard": "DASHBOARD",
+        "manage": "Fleet Management",
+        "logout": "LOGOUT",
+        "total": "TOTAL VEHICLES",
+        "available": "AVAILABLE",
+        "rented": "RENTED",
+        "avg_price": "AVG PRICE / DAY",
+        "vehicle": "VEHICLE",
+        "price": "PRICE",
+        "status": "STATUS",
+        "actions": "ACTIONS",
+        "edit": "Edit",
+        "disp": "AVAILABLE",
+        "rent": "RENTED"
       }
     }
   },
@@ -158,6 +178,26 @@ const resources = {
         "hours_text": "09:00 - 20:00 • Lun - Sam",
         "text": "Notre équipe est à votre disposition pour vous conseiller et organiser votre mobilité sur-mesure à Casablanca.",
         "whatsapp": "DÉBUTER SUR WHATSAPP"
+      },
+      "admin": {
+        "title": "Espace Administrateur",
+        "subtitle": "Veuillez saisir votre code d'accès pour continuer.",
+        "placeholder": "Code d'accès",
+        "login": "SE CONNECTER",
+        "dashboard": "TABLEAU DE BORD",
+        "manage": "Gestion de la Flotte",
+        "logout": "DÉCONNEXION",
+        "total": "VÉHICULES TOTAUX",
+        "available": "DISPONIBLES",
+        "rented": "LOUÉS",
+        "avg_price": "PRIX MOYEN / JOUR",
+        "vehicle": "VÉHICULE",
+        "price": "PRIX",
+        "status": "STATUT",
+        "actions": "ACTIONS",
+        "edit": "Modifier",
+        "disp": "DISPONIBLE",
+        "rent": "LOUÉ"
       }
     }
   },
@@ -237,6 +277,26 @@ const resources = {
         "hours_text": "09:00 - 20:00 • الاثنين - السبت",
         "text": "فريقنا رهن إشارتكم لتقديم المشورة وتنظيم تنقلكم في الدار البيضاء.",
         "whatsapp": "ابدأ عبر واتساب"
+      },
+      "admin": {
+        "title": "فضاء المسؤول",
+        "subtitle": "يرجى إدخال رمز الدخول للمتابعة.",
+        "placeholder": "رمز الدخول",
+        "login": "تسجيل الدخول",
+        "dashboard": "لوحة القيادة",
+        "manage": "إدارة الأسطول",
+        "logout": "تسجيل الخروج",
+        "total": "إجمالي السيارات",
+        "available": "متوفرة",
+        "rented": "مؤجرة",
+        "avg_price": "متوسط السعر / يوم",
+        "vehicle": "السيارة",
+        "price": "السعر",
+        "status": "الحالة",
+        "actions": "الإجراءات",
+        "edit": "تعديل",
+        "disp": "متوفرة",
+        "rent": "مؤجرة"
       }
     }
   }
