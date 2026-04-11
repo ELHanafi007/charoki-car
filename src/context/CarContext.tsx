@@ -13,12 +13,12 @@ const CarContext = createContext<CarContextType | undefined>(undefined);
 
 export const CarProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cars, setCars] = useState<Car[]>(() => {
-    const saved = localStorage.getItem('charoki_cars');
+    const saved = localStorage.getItem('charoki_cars_v3');
     return saved ? JSON.parse(saved) : INITIAL_CARS;
   });
 
   useEffect(() => {
-    localStorage.setItem('charoki_cars', JSON.stringify(cars));
+    localStorage.setItem('charoki_cars_v3', JSON.stringify(cars));
   }, [cars]);
 
   const updateCarPrice = (id: number, price: number) => {
