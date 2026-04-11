@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ShieldCheck, MapPin, Star, ChevronDown } from 'lucide-react';
 import { useCars } from '../context/CarContext';
