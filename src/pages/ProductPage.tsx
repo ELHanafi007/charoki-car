@@ -47,7 +47,7 @@ const ProductPage: React.FC = () => {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '80px' }}>
           <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}>
             <img 
-              src={car.image + "&fm=webp"} 
+              src={car.image.startsWith('http') ? car.image + "&fm=webp" : car.image} 
               alt={`Charoki Car Rental: ${car.name} luxury vehicle`} 
               style={{ width: '100%', height: '550px', objectFit: 'cover', border: '1px solid var(--border)' }} 
               width="800"

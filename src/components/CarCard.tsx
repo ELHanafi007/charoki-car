@@ -23,7 +23,7 @@ const CarCard: React.FC<CarCardProps> = ({ car }) => {
       <Link to={`/car/${car.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
         <div className="image-wrapper" style={{ overflow: 'hidden', position: 'relative' }}>
           <img 
-            src={car.image + "&fm=webp"} 
+            src={car.image.startsWith('http') ? car.image + "&fm=webp" : car.image} 
             alt={`Charoki Car Rental: ${car.name}`} 
             style={{ transition: 'transform 1s cubic-bezier(0.16, 1, 0.3, 1)' }} 
             onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'} 
