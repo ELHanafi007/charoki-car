@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import { 
   Phone, Zap, Fuel, 
   Menu, X, ArrowLeft, Star,
-  ShieldCheck, Clock, MapPin, MessageCircle,
+  ShieldCheck, MapPin, MessageCircle, Clock,
   ChevronDown, Instagram, Facebook, ArrowUpRight
 } from 'lucide-react';
 
@@ -77,8 +77,8 @@ const INITIAL_CARS: Car[] = [
 ];
 
 const TESTIMONIALS = [
-  { id: 1, name: "Youssef El Amrani", role: "Entrepreneur", content: "Service exceptionnel. La voiture était impeccable et livrée à l'heure à l'aéroport.", rating: 5 },
-  { id: 2, name: "Sarah Bennani", role: "Consultante", content: "J'ai loué une citadine pour mes déplacements à Casablanca. Équipe très professionnelle.", rating: 5 },
+  { id: 1, name: "Youssef El Amrani", role: "Entrepreneur", content: "Service exceptionnel. La voiture était impeccable et livrée à l'heure.", rating: 5 },
+  { id: 2, name: "Sarah Bennani", role: "Consultante", content: "J'ai loué une citadine pour mes déplacements à Casablanca. Équipe pro.", rating: 5 },
   { id: 3, name: "Marc Lefebvre", role: "Touriste", content: "Une expérience sans stress. Tarifs transparents et assistance réactive.", rating: 4 }
 ];
 
@@ -143,7 +143,7 @@ const Navbar = ({ activePage, setPage }: { activePage: string, setPage: (p: stri
       <nav className={`glass-nav ${isScrolled || activePage !== 'home' ? 'scrolled' : ''}`}>
         <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div className="logo" onClick={() => setPage('home')} style={{ fontSize: '1.2rem', fontWeight: 800, letterSpacing: '3px', cursor: 'pointer', color: 'var(--text-primary)' }}>
-            CHAROKI<span className="gold-text">CARS</span>
+            CHAROKI<span style={{ color: 'var(--accent)' }}>CARS</span>
           </div>
           <div className="desktop-menu" style={{ display: 'flex', gap: '45px', alignItems: 'center' }}>
             {menuItems.map((item) => (
@@ -168,6 +168,58 @@ const Navbar = ({ activePage, setPage }: { activePage: string, setPage: (p: stri
         )}
       </AnimatePresence>
     </>
+  );
+};
+
+const MaskHero = ({ setPage }: { setPage: (p: string) => void }) => {
+  const mouseX = useMotionValue(50);
+  const springX = useSpring(mouseX, { stiffness: 100, damping: 30 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const p = (e.clientX / window.innerWidth) * 100;
+      mouseX.set(p);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  const [clipPath, setClipPath] = useState('inset(0 0 0 50%)');
+  useEffect(() => {
+    return springX.on("change", (latest) => {
+      setClipPath(`inset(0 0 0 ${latest}%)`);
+    });
+  }, [springX]);
+
+  return (
+    <section className="mask-hero">
+      <div className="hero-layer layer-base">
+        <div className="container hero-content-wrapper">
+          <motion.h1 initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2 }} className="hero-title text-black serif">
+            CHAROKI <br /> <span style={{ fontStyle: 'italic', fontWeight: 300 }}>CARS</span>
+          </motion.h1>
+          <div style={{ marginTop: '40px', display: 'flex', gap: '20px', justifyContent: 'center' }}>
+             <button className="btn-primary" onClick={() => setPage('fleet')}>PARCOURIR</button>
+             <button className="btn-outline" style={{ border: '1px solid #000' }} onClick={() => setPage('contact')}>CONTACT</button>
+          </div>
+        </div>
+      </div>
+
+      <div className="hero-layer layer-overlay" style={{ 
+        backgroundImage: `url(https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&q=80&w=2070)`,
+        clipPath: clipPath
+      }}>
+        <div className="container hero-content-wrapper">
+          <h1 className="hero-title text-reveal serif">
+            CHAROKI <br /> <span style={{ fontStyle: 'italic', fontWeight: 300 }}>CARS</span>
+          </h1>
+          <div style={{ marginTop: '40px', display: 'flex', gap: '20px', justifyContent: 'center' }}>
+             <button className="btn-primary" style={{ background: '#fff', color: '#000' }} onClick={() => setPage('fleet')}>PARCOURIR</button>
+             <button className="btn-outline" style={{ borderColor: '#fff', color: '#fff' }} onClick={() => setPage('contact')}>CONTACT</button>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 
@@ -200,49 +252,26 @@ const CarCard = ({ car, setPage }: { car: Car, setPage: (p: string) => void }) =
 
 const Home = ({ setPage, cars }: { setPage: (p: string) => void, cars: Car[] }) => (
   <>
-    <section className="hero">
-      <div className="container">
-        <div className="hero-content">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>
-            <span style={{ color: 'var(--accent)', fontWeight: 800, letterSpacing: '0.4em', fontSize: '0.7rem', display: 'block', marginBottom: '25px' }}>L'ART DE LA MOBILITÉ PREMIUM</span>
-            <h1 style={{ fontSize: 'clamp(3.5rem, 8vw, 6rem)', lineHeight: 1, marginBottom: '35px', color: 'var(--text-primary)' }}>
-              Voyagez avec <br />
-              <span className="serif" style={{ fontStyle: 'italic', fontWeight: 400 }}>Élégance</span>
-            </h1>
-            <p style={{ maxWidth: '500px', fontSize: '1.1rem', marginBottom: '50px', lineHeight: 1.8 }}>
-              Découvrez une sélection rigoureuse de véhicules d'exception pour vos séjours à Casablanca. Un service sur-mesure pour une expérience inégalée.
-            </p>
-            <div style={{ display: 'flex', gap: '20px' }}>
-              <button className="btn-primary" onClick={() => setPage('fleet')}>NOTRE COLLECTION</button>
-              <button className="btn-outline" onClick={() => setPage('contact')}>CONTACTER</button>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-      <div className="hero-image-container">
-        <motion.img initial={{ scale: 1.1, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1.5 }} className="hero-img" src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&q=80&w=2070" alt="Luxury Car" />
-      </div>
-    </section>
+    <MaskHero setPage={setPage} />
 
     <section style={{ padding: '140px 0', background: '#fff' }}>
       <div className="container">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '80px', alignItems: 'center' }}>
           <div>
             <SectionTitle title="L'Excellence du Service" subtitle="NOTRE VISION" centered={false} />
-            <p style={{ marginBottom: '35px', fontSize: '1.1rem' }}>Basé au cœur du prestigieux quartier Gauthier, CHAROKI CARS redéfinit les standards de la location automobile au Maroc.</p>
+            <p style={{ marginBottom: '35px', fontSize: '1.1rem' }}>CHAROKI CARS redéfinit les standards de la location premium au Maroc, avec un parc exclusif et un service sur-mesure.</p>
             <div style={{ display: 'grid', gap: '30px' }}>
               <div style={{ display: 'flex', gap: '20px' }}>
                 <ShieldCheck color="var(--accent)" size={28} />
-                <div><h4 style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '5px' }}>SÉCURITÉ & SÉRÉNITÉ</h4><p style={{ fontSize: '0.9rem' }}>Assurance tous risques et assistance 24/7 incluse.</p></div>
+                <div><h4 style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '5px' }}>SÉRÉNITÉ</h4><p style={{ fontSize: '0.9rem' }}>Assurance tous risques et assistance 24/7 incluse.</p></div>
               </div>
               <div style={{ display: 'flex', gap: '20px' }}>
                 <MapPin color="var(--accent)" size={28} />
-                <div><h4 style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '5px' }}>LIVRAISON PRIVÉE</h4><p style={{ fontSize: '0.9rem' }}>Aéroport, domicile ou bureau selon votre convenance.</p></div>
+                <div><h4 style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '5px' }}>LIVRAISON</h4><p style={{ fontSize: '0.9rem' }}>Aéroport, domicile ou bureau selon vos besoins.</p></div>
               </div>
             </div>
           </div>
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} style={{ position: 'relative', padding: '20px' }}>
-            <div style={{ position: 'absolute', top: 0, left: 0, width: '70%', height: '100%', border: '1px solid var(--accent-light)', zIndex: 0 }}></div>
             <img src="https://images.unsplash.com/photo-1469033092076-096ff723f901?auto=format&fit=crop&q=80&w=1000" style={{ width: '100%', position: 'relative', zIndex: 1, boxShadow: '0 10px 40px rgba(0,0,0,0.04)' }} alt="Luxury Interior" />
           </motion.div>
         </div>
@@ -251,32 +280,29 @@ const Home = ({ setPage, cars }: { setPage: (p: string) => void, cars: Car[] }) 
 
     <section style={{ padding: '140px 0', background: 'var(--bg-secondary)' }}>
       <div className="container">
-        <SectionTitle title="Notre Sélection" subtitle="LA FLOTTE" />
+        <SectionTitle title="La Flotte" subtitle="NOTRE SÉLECTION" />
         <div className="grid-3">
           {cars.slice(0, 3).map(car => <CarCard key={car.id} car={car} setPage={setPage} />)}
         </div>
         <div style={{ textAlign: 'center', marginTop: '70px' }}>
-          <button className="btn-outline" onClick={() => setPage('fleet')}>VOIR TOUTE LA COLLECTION</button>
+          <button className="btn-outline" style={{ border: '1px solid #000' }} onClick={() => setPage('fleet')}>VOIR TOUTE LA COLLECTION</button>
         </div>
       </div>
     </section>
 
     <section style={{ padding: '140px 0' }}>
       <div className="container">
-        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-          <SectionTitle title="Expériences Clients" subtitle="ILS NOUS FONT CONFIANCE" />
-          <div className="grid-3" style={{ gap: '40px' }}>
-            {TESTIMONIALS.map(t => (
-              <div key={t.id} style={{ textAlign: 'center', padding: '40px', background: 'var(--bg-secondary)', borderRadius: '2px' }}>
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '4px', marginBottom: '25px' }}>
-                  {[...Array(t.rating)].map((_, i) => <Star key={i} size={12} fill="var(--accent)" color="var(--accent)" />)}
-                </div>
-                <p className="serif" style={{ fontSize: '1.4rem', fontStyle: 'italic', color: 'var(--text-primary)', marginBottom: '30px', lineHeight: 1.5 }}>"{t.content}"</p>
-                <div style={{ fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>{t.name}</div>
-                <div style={{ color: 'var(--accent)', fontSize: '0.65rem', marginTop: '5px' }}>{t.role}</div>
+        <SectionTitle title="Expériences Clients" subtitle="TEMOIGNAGES" />
+        <div className="grid-3" style={{ gap: '40px' }}>
+          {TESTIMONIALS.map(t => (
+            <div key={t.id} style={{ textAlign: 'center', padding: '40px', background: 'var(--bg-secondary)', borderRadius: '2px' }}>
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '4px', marginBottom: '25px' }}>
+                {[...Array(t.rating)].map((_, i) => <Star key={i} size={12} fill="var(--accent)" color="var(--accent)" />)}
               </div>
-            ))}
-          </div>
+              <p className="serif" style={{ fontSize: '1.4rem', fontStyle: 'italic', color: 'var(--text-primary)', marginBottom: '30px', lineHeight: 1.5 }}>"{t.content}"</p>
+              <div style={{ fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>{t.name}</div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -307,7 +333,7 @@ const Fleet = ({ setPage, cars }: { setPage: (p: string) => void, cars: Car[] })
   return (
     <section style={{ paddingTop: '180px', paddingBottom: '140px' }}>
       <div className="container">
-        <SectionTitle title="Notre Collection" subtitle="LA FLOTTE" />
+        <SectionTitle title="La Collection" subtitle="NOS VÉHICULES" />
         <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '80px', flexWrap: 'wrap' }}>
           {['Tous', 'Citadine', 'SUV', 'Berline'].map(f => (
             <button key={f} onClick={() => setFilter(f)} style={{ background: filter === f ? 'var(--text-primary)' : 'transparent', border: '1px solid var(--border)', color: filter === f ? '#fff' : 'var(--text-primary)', padding: '12px 30px', cursor: 'pointer', fontWeight: 700, fontSize: '0.65rem', letterSpacing: '0.2em', transition: '0.3s' }}>
@@ -405,7 +431,7 @@ const Booking = ({ selectedCarId, start, end, cars }: { selectedCarId?: number, 
       <div className="container">
         <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '60px' }}>
           <div style={{ background: '#fff', padding: '60px', border: '1px solid var(--border)', boxShadow: '0 10px 40px rgba(0,0,0,0.04)' }}>
-            <h2 className="serif" style={{ fontSize: '2.5rem', marginBottom: '40px' }}>Confirmation de <br /><span className="gold-text">Réservation</span></h2>
+            <h2 className="serif" style={{ fontSize: '2.5rem', marginBottom: '40px' }}>Confirmation de <br /><span>Réservation</span></h2>
             {step === 1 ? (
               <div style={{ display: 'grid', gap: '30px' }}>
                 <div><label className="label-text">DÉBUT DE LOCATION</label><input type="date" className="input-field" value={form.start} onChange={e => setForm({...form, start: e.target.value})} /></div>
@@ -428,7 +454,7 @@ const Booking = ({ selectedCarId, start, end, cars }: { selectedCarId?: number, 
             {days > 0 && (
               <div style={{ marginTop: '40px', paddingTop: '30px', borderTop: '1px solid var(--border-light)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}><span style={{ color: 'var(--text-secondary)' }}>Durée</span><span>{days} jours</span></div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.4rem', fontWeight: 800 }}><span>Total</span><span className="gold-text">{days * car.price} MAD</span></div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.4rem', fontWeight: 800 }}><span>Total</span><span style={{ color: 'var(--accent)' }}>{days * car.price} MAD</span></div>
               </div>
             )}
           </div>
@@ -491,7 +517,7 @@ const App = () => {
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1.2fr', gap: '80px', marginBottom: '80px' }}>
             <div>
-              <div className="logo" style={{ fontSize: '1.8rem', fontWeight: 800, letterSpacing: '2px', marginBottom: '30px' }}>CHAROKI<span className="gold-text">CARS</span></div>
+              <div className="logo" style={{ fontSize: '1.8rem', fontWeight: 800, letterSpacing: '2px', marginBottom: '30px' }}>CHAROKI<span style={{ color: 'var(--accent)' }}>CARS</span></div>
               <p style={{ maxWidth: '400px', marginBottom: '35px', lineHeight: 1.8 }}>L'excellence automobile à Casablanca. Une collection exclusive de véhicules premium pour vos exigences les plus hautes.</p>
               <div style={{ display: 'flex', gap: '25px' }}>
                 <Instagram size={18} style={{ opacity: 0.6, cursor: 'pointer' }} />

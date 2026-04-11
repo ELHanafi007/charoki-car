@@ -10,6 +10,7 @@
   --bg-nav: rgba(255, 255, 255, 0.8);
   --text-primary: #1A1A1A;
   --text-secondary: #666666;
+  --red-white: #FDECEC; /* The Pale Red-White for the photo overlay */
   --border: rgba(0, 0, 0, 0.06);
   --border-light: rgba(0, 0, 0, 0.03);
   --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.04);
@@ -43,12 +44,6 @@ h1, h2, h3, .serif {
 p {
   font-weight: 300;
   color: var(--text-secondary);
-}
-
-.gold-text {
-  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .container {
@@ -91,6 +86,52 @@ p {
   color: var(--accent);
 }
 
+/* Hero Masking System */
+.mask-hero {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: #fff;
+}
+
+.hero-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.layer-base {
+  background: white;
+  z-index: 1;
+}
+
+.layer-overlay {
+  z-index: 2;
+  background-size: cover;
+  background-position: center;
+  /* The clip-path will be controlled by inline styles for mouse tracking */
+}
+
+.hero-content-wrapper {
+  width: 100%;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: clamp(4rem, 12vw, 10rem);
+  line-height: 0.85;
+  font-weight: 500;
+  white-space: nowrap;
+  letter-spacing: -0.03em;
+}
+
+.text-black { color: #000; }
+.text-reveal { color: var(--red-white); }
+
 /* Premium Buttons */
 .btn-primary {
   background: var(--text-primary);
@@ -115,55 +156,6 @@ p {
   box-shadow: 0 15px 30px rgba(176, 141, 87, 0.2);
 }
 
-.btn-outline {
-  background: transparent;
-  color: var(--text-primary);
-  border: 1px solid var(--text-primary);
-  padding: 20px 45px;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.btn-outline:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-/* Hero Section */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding-top: 100px;
-  background: var(--bg-secondary);
-  position: relative;
-}
-
-.hero-content {
-  max-width: 700px;
-  position: relative;
-  z-index: 5;
-}
-
-.hero-image-container {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 55%;
-  height: 100%;
-  clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
-}
-
-.hero-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 /* Car Cards */
 .car-card {
   background: var(--bg-card);
@@ -178,11 +170,6 @@ p {
   transform: translateY(-8px);
 }
 
-.car-card .image-wrapper {
-  overflow: hidden;
-  background: var(--bg-secondary);
-}
-
 .car-card img {
   width: 100%;
   aspect-ratio: 3/2;
@@ -190,41 +177,8 @@ p {
   transition: transform 1.5s var(--ease);
 }
 
-.car-card:hover img {
-  transform: scale(1.05);
-}
-
 .car-card .card-body {
   padding: 2rem;
-}
-
-/* Forms */
-.input-field {
-  width: 100%;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  color: var(--text-primary);
-  padding: 18px;
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-  transition: var(--transition);
-  outline: none;
-}
-
-.input-field:focus {
-  border-color: var(--accent);
-  background: #fff;
-}
-
-.label-text {
-  font-size: 0.6rem;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-  display: block;
-  font-weight: 700;
-  opacity: 0.8;
 }
 
 /* Grid System */
@@ -234,38 +188,10 @@ p {
   gap: 2.5rem;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 4px;
-}
-::-webkit-scrollbar-track {
-  background: #fff;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--border);
-}
-
 /* Responsive */
-@media (max-width: 992px) {
-  .hero-image-container {
-    display: none;
-  }
-  .hero-content {
-    max-width: 100%;
-    text-align: center;
-  }
-  .hero {
-    min-height: auto;
-    padding: 180px 0 100px;
-  }
-  h1 {
-    font-size: 4rem !important;
-  }
-}
-
 @media (max-width: 768px) {
   .desktop-menu { display: none !important; }
   .mobile-toggle { display: block !important; }
-  h1 { font-size: 3rem !important; }
+  .hero-title { font-size: 15vw; white-space: normal; line-height: 1; }
   .container { padding: 0 24px; }
 }
