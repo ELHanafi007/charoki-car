@@ -27,7 +27,10 @@ const Fleet: React.FC = () => {
           {categories.map(cat => (
             <button 
               key={cat.id} 
-              onClick={() => setFilter(cat.id)} 
+              onClick={() => {
+                console.log('Setting filter to:', cat.id);
+                setFilter(cat.id);
+              }} 
               style={{ 
                 background: filter === cat.id ? 'var(--text-primary)' : 'transparent', 
                 border: '1px solid var(--border)', 
