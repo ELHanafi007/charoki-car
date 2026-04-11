@@ -1,9 +1,6 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 const SEOContent: React.FC = () => {
-  const { t } = useTranslation();
-
   return (
     <section style={{ padding: '100px 0', background: '#fff', borderTop: '1px solid var(--border)' }}>
       <div className="container">
