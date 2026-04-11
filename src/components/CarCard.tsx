@@ -39,16 +39,16 @@ const CarCard: React.FC<CarCardProps> = ({ car }) => {
             </div>
           )}
         </div>
-        <div className="card-body">
-          <span style={{ fontSize: '0.6rem', color: 'var(--accent)', fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', display: 'block', marginBottom: '10px' }}>{car.brand}</span>
-          <h3 style={{ fontSize: '1.8rem', marginBottom: '20px', color: 'var(--text-primary)' }}>{car.name}</h3>
-          <div style={{ display: 'flex', gap: '20px', marginBottom: '25px', color: 'var(--text-secondary)', fontSize: '0.75rem', fontWeight: 500 }}>
-            <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Zap size={14} color="var(--accent)" /> {car.transmission[lang]}</span>
-            <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Fuel size={14} color="var(--accent)" /> {car.fuel[lang]}</span>
+        <div className="card-body" style={{ padding: '1.5rem' }}>
+          <span style={{ fontSize: '0.55rem', color: 'var(--accent)', fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>{car.brand}</span>
+          <h3 style={{ fontSize: '1.4rem', marginBottom: '15px', color: 'var(--text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{car.name}</h3>
+          <div style={{ display: 'flex', gap: '12px', marginBottom: '20px', color: 'var(--text-secondary)', fontSize: '0.65rem', fontWeight: 500 }}>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Zap size={12} color="var(--accent)" /> {car.transmission[lang].split(' ')[0]}</span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Fuel size={12} color="var(--accent)" /> {car.fuel[lang]}</span>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--border-light)', paddingTop: '20px' }}>
-            <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-primary)' }}>{car.price} MAD <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 400 }}>{t('car.per_day')}</span></div>
-            <div style={{ width: '35px', height: '35px', borderRadius: '50%', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ArrowUpRight size={16} /></div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--border-light)', paddingTop: '15px' }}>
+            <div style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)' }}>{car.price} <span style={{ fontSize: '0.6rem', color: 'var(--text-secondary)', fontWeight: 400 }}>MAD/{t('car.days').slice(0,1)}</span></div>
+            <div style={{ width: '28px', height: '28px', borderRadius: '50%', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ArrowUpRight size={14} /></div>
           </div>
         </div>
       </Link>

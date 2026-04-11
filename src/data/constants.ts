@@ -1,52 +1,53 @@
 import type { Car } from '../types';
 
 export const INITIAL_CARS: Car[] = [
+  // --- CITADINES (SMALL) ---
   { 
-    id: 1, brand: "Hyundai", name: "Hyundai Tucson", price: 600, 
-    category: { fr: "SUV", en: "SUV", ar: "سيارة رياضية" },
-    image: "/cars/hyundai-tucson-ultimate-17.webp", 
+    id: 13, brand: "Citroën", name: "Citroën C3", price: 300, 
+    category: { fr: "Citadine", en: "City Car", ar: "سيارة مدينة" },
+    image: "/cars/c3.webp", 
     specs: {
-      fr: ["Automatique", "5 Sièges", "Diesel", "Showroom Casa"],
-      en: ["Automatic", "5 Seats", "Diesel", "Casa Showroom"],
-      ar: ["أوتوماتيك", "5 مقاعد", "ديزل", "معرض الدار البيضاء"]
+      fr: ["Manuelle", "5 Sièges", "Essence", "Confort"],
+      en: ["Manual", "5 Seats", "Petrol", "Comfort"],
+      ar: ["يدوي", "5 مقاعد", "بنزين", "مريحة"]
     },
     details: {
-      fr: "Le confort moderne pour vos trajets urbains et familiaux.",
-      en: "Modern comfort for your urban and family trips.",
-      ar: "الراحة العصرية لرحلاتكم الحضرية والعائلية."
+      fr: "Colorée et confortable, la citadine pétillante.",
+      en: "Colorful and comfortable, the sparkling city car.",
+      ar: "ملونة ومريحة، سيارة المدينة المتألقة."
     },
     fullDescription: {
-      fr: "Le Hyundai Tucson est le SUV polyvalent par excellence. Son design audacieux et son habitacle spacieux en font le compagnon idéal pour explorer Casablanca ou partir en voyage à travers le Maroc.",
-      en: "The Hyundai Tucson is the quintessential versatile SUV. Its bold design and spacious interior make it the ideal companion for exploring Casablanca or embarking on a trip across Morocco.",
-      ar: "هيونداي توسان هي السيارة الرياضية متعددة الاستخدامات بامتياز. تصميمها الجريء ومقصورتها الواسعة تجعلها الرفيق المثالي لاستكشاف الدار البيضاء أو الانطلاق في رحلة عبر المغرب."
+      fr: "La Citroën C3 se distingue par son design audacieux et ses Airbump®. Ses sièges Advanced Comfort garantissent une conduite détendue dans toutes les rues de Casablanca.",
+      en: "The Citroën C3 stands out with its bold design and Airbumps®. Its Advanced Comfort seats guarantee a relaxed drive in all the streets of Casablanca.",
+      ar: "تتميز ستروين C3 بتصميمها الجريء ونظام Airbump®. تضمن مقاعد الراحة المتقدمة قيادة مريحة في جميع شوارع الدار البيضاء."
     },
-    engine: "1.6L CRDi 136ch", 
-    transmission: { fr: "Automatique 7 rapports", en: "7-speed Automatic", ar: "أوتوماتيك 7 سرعات" },
-    fuel: { fr: "Diesel", en: "Diesel", ar: "ديزل" }, 
+    engine: "1.2L PureTech 82ch", 
+    transmission: { fr: "Manuelle 5 rapports", en: "5-speed Manual", ar: "يدوي 5 سرعات" },
+    fuel: { fr: "Essence", en: "Petrol", ar: "بنزين" }, 
     status: 'disponible'
   },
   { 
-    id: 7, brand: "Hyundai", name: "Hyundai Accent", price: 350, 
-    category: { fr: "Berline", en: "Sedan", ar: "سيارة عائلية" },
-    image: "/cars/hyundai-accent-in-grey-color-with-almaty-car-number-front-view.webp", 
+    id: 2, brand: "Peugeot", name: "Peugeot 208", price: 400, 
+    category: { fr: "Citadine", en: "City Car", ar: "سيارة مدينة" },
+    image: "/cars/1758455-1920x1080-desktop-1080p-peugeot-208-wallpaper.webp", 
     specs: {
-      fr: ["Manuelle", "5 Sièges", "Diesel", "Économique"],
-      en: ["Manual", "5 Seats", "Diesel", "Economical"],
-      ar: ["يدوي", "5 مقاعد", "ديزل", "اقتصادية"]
+      fr: ["Manuelle", "5 Sièges", "i-Cockpit", "Ville"],
+      en: ["Manual", "5 Seats", "i-Cockpit", "City"],
+      ar: ["يدوي", "5 مقاعد", "i-Cockpit", "مدينة"]
     },
     details: {
-      fr: "Une berline fiable et économe, idéale pour les longs trajets.",
-      en: "A reliable and economical sedan, ideal for long journeys.",
-      ar: "سيارة عائلية موثوقة واقتصادية، مثالية للرحلات الطويلة."
+      fr: "Agile et irrésistible, la reine des rues de Casablanca.",
+      en: "Agile and irresistible, the queen of Casablanca's streets.",
+      ar: "رشيقة ولا تقاوم، ملكة شوارع الدار البيضاء."
     },
     fullDescription: {
-      fr: "La Hyundai Accent combine élégance et efficacité. Sa consommation de carburant optimisée et son confort intérieur en font un choix privilégié pour vos déplacements professionnels et personnels au Maroc.",
-      en: "The Hyundai Accent combines elegance and efficiency. Its optimized fuel consumption and interior comfort make it a preferred choice for your business and personal travel in Morocco.",
-      ar: "تجمع هيونداي أكسنت بين الأناقة والكفاءة. استهلاكها المحسن للوقود وراحتها الداخلية تجعلها خيارًا مفضلاً لتنقلاتكم المهنية والشخصية في المغرب."
+      fr: "La Peugeot 208 séduit par son style affirmé et sa technologie embarquée. Agile dans le trafic urbain, elle offre une conduite dynamique et économique sans compromis sur le confort.",
+      en: "The Peugeot 208 seduces with its assertive style and on-board technology. Agile in urban traffic, it offers dynamic and economical driving without compromising on comfort.",
+      ar: "تغري بيجو 208 بأسلوبها القوي والتكنولوجيا المدمجة. رشيقة في حركة المرور في المدينة، وتوفر قيادة ديناميكية واقتصادية دون المساومة على الراحة."
     },
-    engine: "1.5L CRDi 115ch", 
-    transmission: { fr: "Manuelle 6 rapports", en: "6-speed Manual", ar: "يدوي 6 سرعات" },
-    fuel: { fr: "Diesel", en: "Diesel", ar: "ديزل" }, 
+    engine: "1.2L PureTech 75ch", 
+    transmission: { fr: "Manuelle 5 rapports", en: "5-speed Manual", ar: "يدوي 5 سرعات" },
+    fuel: { fr: "Essence", en: "Petrol", ar: "بنزين" }, 
     status: 'disponible'
   },
   { 
@@ -97,28 +98,54 @@ export const INITIAL_CARS: Car[] = [
     fuel: { fr: "Diesel", en: "Diesel", ar: "ديزل" }, 
     status: 'disponible'
   },
+  
+  // --- BERLINES (MEDIUM) ---
   { 
-    id: 9, brand: "Renault", name: "Renault Arkana", price: 650, 
-    category: { fr: "SUV", en: "SUV", ar: "سيارة رياضية" },
-    image: "/cars/Renault-Arkana_EU-Version-2022-1280-01.webp", 
+    id: 7, brand: "Hyundai", name: "Hyundai Accent", price: 350, 
+    category: { fr: "Berline", en: "Sedan", ar: "سيارة عائلية" },
+    image: "/cars/hyundai-accent-in-grey-color-with-almaty-car-number-front-view.webp", 
     specs: {
-      fr: ["Automatique", "5 Sièges", "Hybride", "Style"],
-      en: ["Automatic", "5 Seats", "Hybrid", "Style"],
-      ar: ["أوتوماتيك", "5 مقاعد", "هجينة", "أنيقة"]
+      fr: ["Manuelle", "5 Sièges", "Diesel", "Économique"],
+      en: ["Manual", "5 Seats", "Diesel", "Economical"],
+      ar: ["يدوي", "5 مقاعد", "ديزل", "اقتصادية"]
     },
     details: {
-      fr: "Le SUV coupé qui allie élégance et performance.",
-      en: "The SUV coupe that combines elegance and performance.",
-      ar: "سيارة رياضية كوبيه تجمع بين الأناقة والأداء."
+      fr: "Une berline fiable et économe, idéale pour les longs trajets.",
+      en: "A reliable and economical sedan, ideal for long journeys.",
+      ar: "سيارة عائلية موثوقة واقتصادية، مثالية للرحلات الطويلة."
     },
     fullDescription: {
-      fr: "Le Renault Arkana redéfinit le segment avec sa silhouette de coupé et sa position de conduite haute. Un mélange parfait de style, d'espace et de technologie hybride moderne.",
-      en: "The Renault Arkana redefines the segment with its coupe silhouette and high driving position. A perfect blend of style, space, and modern hybrid technology.",
-      ar: "رينو أركانا تعيد تعريف هذه الفئة بتصميمها الكوبيه ووضعية القيادة المرتفعة. مزيج مثالي من الأناقة والمساحة والتكنولوجيا الهجينة الحديثة."
+      fr: "La Hyundai Accent combine élégance et efficacité. Sa consommation de carburant optimisée et son confort intérieur en font un choix privilégié pour vos déplacements professionnels et personnels au Maroc.",
+      en: "The Hyundai Accent combines elegance and efficiency. Its optimized fuel consumption and interior comfort make it a preferred choice for your business and personal travel in Morocco.",
+      ar: "تجمع هيونداي أكسنت بين الأناقة والكفاءة. استهلاكها المحسن للوقود وراحتها الداخلية تجعلها خيارًا مفضلاً لتنقلاتكم المهنية والشخصية في المغرب."
     },
-    engine: "E-Tech Hybrid 145ch", 
-    transmission: { fr: "Automatique Multi-modes", en: "Multi-mode Automatic", ar: "أوتوماتيك متعدد الأوضاع" },
-    fuel: { fr: "Hybride", en: "Hybrid", ar: "هجينة" }, 
+    engine: "1.5L CRDi 115ch", 
+    transmission: { fr: "Manuelle 6 rapports", en: "6-speed Manual", ar: "يدوي 6 سرعات" },
+    fuel: { fr: "Diesel", en: "Diesel", ar: "ديزل" }, 
+    status: 'disponible'
+  },
+  { 
+    id: 3, brand: "Citroën", name: "Citroën C4", price: 550, 
+    category: { fr: "Berline", en: "Sedan", ar: "سيارة عائلية" },
+    image: "/cars/c4.webp", 
+    specs: {
+      fr: ["Automatique", "5 Sièges", "Confort", "Design"],
+      en: ["Automatic", "5 Seats", "Comfort", "Design"],
+      ar: ["أوتوماتيك", "5 مقاعد", "مريحة", "تصميم"]
+    },
+    details: {
+      fr: "Une berline surélevée au confort de suspension exceptionnel.",
+      en: "An elevated sedan with exceptional suspension comfort.",
+      ar: "سيارة عائلية مرتفعة براحة تعليق استثنائية."
+    },
+    fullDescription: {
+      fr: "La Citroën C4 réinvente la berline compacte. Avec son design unique mixant les codes de la berline et du SUV, elle offre un confort de suspension 'tapis volant' typique de Citroën.",
+      en: "The Citroën C4 reinvents the compact sedan. With its unique design mixing sedan and SUV codes, it offers 'magic carpet' suspension comfort typical of Citroën.",
+      ar: "ستروين C4 تعيد ابتكار السيارة العائلية المدمجة. بفضل تصميمها الفريد الذي يمزج بين خصائص السيارات العائلية والرياضية، فإنها توفر راحة تعليق 'البساط السحري' المميزة لشركة ستروين."
+    },
+    engine: "1.5L BlueHDi 130ch", 
+    transmission: { fr: "EAT8 Automatique", en: "EAT8 Automatic", ar: "EAT8 أوتوماتيك" },
+    fuel: { fr: "Diesel", en: "Diesel", ar: "ديزل" }, 
     status: 'disponible'
   },
   { 
@@ -142,6 +169,56 @@ export const INITIAL_CARS: Car[] = [
     },
     engine: "2.0L TDI 150ch", 
     transmission: { fr: "DSG Automatique", en: "DSG Automatic", ar: "DSG أوتوماتيك" },
+    fuel: { fr: "Diesel", en: "Diesel", ar: "ديزل" }, 
+    status: 'disponible'
+  },
+
+  // --- SUVS (LARGE) ---
+  { 
+    id: 1, brand: "Hyundai", name: "Hyundai Tucson", price: 600, 
+    category: { fr: "SUV", en: "SUV", ar: "سيارة رياضية" },
+    image: "/cars/hyundai-tucson-ultimate-17.webp", 
+    specs: {
+      fr: ["Automatique", "5 Sièges", "Diesel", "Showroom Casa"],
+      en: ["Automatic", "5 Seats", "Diesel", "Casa Showroom"],
+      ar: ["أوتوماتيك", "5 مقاعد", "ديزل", "معرض الدار البيضاء"]
+    },
+    details: {
+      fr: "Le confort moderne pour vos trajets urbains et familiaux.",
+      en: "Modern comfort for your urban and family trips.",
+      ar: "الراحة العصرية لرحلاتكم الحضرية والعائلية."
+    },
+    fullDescription: {
+      fr: "Le Hyundai Tucson est le SUV polyvalent par excellence. Son design audacieux et son habitacle spacieux en font le compagnon idéal pour explorer Casablanca ou partir en voyage à travers le Maroc.",
+      en: "The Hyundai Tucson is the quintessential versatile SUV. Its bold design and spacious interior make it the ideal companion for exploring Casablanca or embarking on a trip across Morocco.",
+      ar: "هيونداي توسان هي السيارة الرياضية متعددة الاستخدامات بامتياز. تصميمها الجريء ومقصورتها الواسعة تجعلها الرفيق المثالي لاستكشاف الدار البيضاء أو الانطلاق في رحلة عبر المغرب."
+    },
+    engine: "1.6L CRDi 136ch", 
+    transmission: { fr: "Automatique 7 rapports", en: "7-speed Automatic", ar: "أوتوماتيك 7 سرعات" },
+    fuel: { fr: "Diesel", en: "Diesel", ar: "ديزل" }, 
+    status: 'disponible'
+  },
+  { 
+    id: 14, brand: "Peugeot", name: "Peugeot 2008", price: 550, 
+    category: { fr: "SUV", en: "SUV", ar: "سيارة رياضية" },
+    image: "/cars/1755809-1920x1080-desktop-1080p-peugeot-2008-background-photo.webp", 
+    specs: {
+      fr: ["Automatique", "5 Sièges", "Diesel", "Moderne"],
+      en: ["Automatic", "5 Seats", "Diesel", "Modern"],
+      ar: ["أوتوماتيك", "5 مقاعد", "ديزل", "عصرية"]
+    },
+    details: {
+      fr: "Le SUV compact au design futuriste et élégant.",
+      en: "The compact SUV with a futuristic and elegant design.",
+      ar: "سيارة رياضية مدمجة بتصميم مستقبلي وأنيق."
+    },
+    fullDescription: {
+      fr: "Le Peugeot 2008 offre une expérience de conduite enrichie grâce à son i-Cockpit® 3D. Un SUV compact qui ne passe pas inaperçu avec ses lignes acérées et sa signature lumineuse distinctive.",
+      en: "The Peugeot 2008 offers an enriched driving experience thanks to its i-Cockpit® 3D. A compact SUV that doesn't go unnoticed with its sharp lines and distinctive light signature.",
+      ar: "توفر بيجو 2008 تجربة قيادة غنية بفضل نظام i-Cockpit® 3D. سيارة رياضية مدمجة لا تمر دون أن يلاحظها أحد بخطوطها الحادة وتوقيعها الضوئي المميز."
+    },
+    engine: "1.5L BlueHDi 130ch", 
+    transmission: { fr: "EAT8 Automatique", en: "EAT8 Automatic", ar: "EAT8 أوتوماتيك" },
     fuel: { fr: "Diesel", en: "Diesel", ar: "ديزل" }, 
     status: 'disponible'
   },
@@ -170,99 +247,27 @@ export const INITIAL_CARS: Car[] = [
     status: 'disponible'
   },
   { 
-    id: 11, brand: "Volkswagen", name: "VW Tiguan", price: 750, 
+    id: 9, brand: "Renault", name: "Renault Arkana", price: 650, 
     category: { fr: "SUV", en: "SUV", ar: "سيارة رياضية" },
-    image: "/cars/tiguan.webp", 
+    image: "/cars/Renault-Arkana_EU-Version-2022-1280-01.webp", 
     specs: {
-      fr: ["Automatique", "5 Sièges", "Diesel", "Luxe"],
-      en: ["Automatic", "5 Seats", "Diesel", "Luxury"],
-      ar: ["أوتوماتيك", "5 مقاعد", "ديزل", "فاخرة"]
+      fr: ["Automatique", "5 Sièges", "Hybride", "Style"],
+      en: ["Automatic", "5 Seats", "Hybrid", "Style"],
+      ar: ["أوتوماتيك", "5 مقاعد", "هجينة", "أنيقة"]
     },
     details: {
-      fr: "Polyvalence et confort haut de gamme pour toute la famille.",
-      en: "Versatility and premium comfort for the whole family.",
-      ar: "تعدد الاستخدامات وراحة راقية لجميع أفراد الأسرة."
+      fr: "Le SUV coupé qui allie élégance et performance.",
+      en: "The SUV coupe that combines elegance and performance.",
+      ar: "سيارة رياضية كوبيه تجمع بين الأناقة والأداء."
     },
     fullDescription: {
-      fr: "Le Volkswagen Tiguan est la référence des SUV familiaux. Spacieux, technologique et extrêmement confortable, il vous accompagnera dans tous vos voyages avec une sérénité totale.",
-      en: "The Volkswagen Tiguan is the benchmark for family SUVs. Spacious, technological, and extremely comfortable, it will accompany you on all your travels with total peace of mind.",
-      ar: "فولكس فاجن تيغوان هي المرجع في السيارات الرياضية العائلية. واسعة وتكنولوجية ومريحة للغاية، سترافقكم في جميع رحلاتكم بكل طمأنينة."
+      fr: "Le Renault Arkana redéfinit le segment avec sa silhouette de coupé et sa position de conduite haute. Un mélange parfait de style, d'espace et de technologie hybride moderne.",
+      en: "The Renault Arkana redefines the segment with its coupe silhouette and high driving position. A perfect blend of style, space, and modern hybrid technology.",
+      ar: "رينو أركانا تعيد تعريف هذه الفئة بتصميمها الكوبيه ووضعية القيادة المرتفعة. مزيج مثالي من الأناقة والمساحة والتكنولوجيا الهجينة الحديثة."
     },
-    engine: "2.0L TDI 150ch", 
-    transmission: { fr: "DSG Automatique", en: "DSG Automatic", ar: "DSG أوتوماتيك" },
-    fuel: { fr: "Diesel", en: "Diesel", ar: "ديزل" }, 
-    status: 'disponible'
-  },
-  { 
-    id: 12, brand: "Volkswagen", name: "VW Touareg", price: 1200, 
-    category: { fr: "SUV", en: "SUV", ar: "سيارة رياضية" },
-    image: "/cars/touareg.webp", 
-    specs: {
-      fr: ["Automatique", "5 Sièges", "Diesel", "Premium"],
-      en: ["Automatic", "5 Seats", "Diesel", "Premium"],
-      ar: ["أوتوماتيك", "5 مقاعد", "ديزل", "ممتازة"]
-    },
-    details: {
-      fr: "Le summum du luxe et de la puissance tout-terrain.",
-      en: "The pinnacle of luxury and off-road power.",
-      ar: "قمة الفخامة والقوة على جميع الطرقات."
-    },
-    fullDescription: {
-      fr: "Le VW Touareg est un chef-d'œuvre d'ingénierie. Offrant un luxe incomparable et des performances exceptionnelles, c'est le choix ultime pour une expérience de conduite prestigieuse.",
-      en: "The VW Touareg is a masterpiece of engineering. Offering incomparable luxury and exceptional performance, it is the ultimate choice for a prestigious driving experience.",
-      ar: "فولكس فاجن طوارق هي تحفة هندسية. توفر فخامة لا تضاهى وأداءً استثنائيًا، وهي الخيار الأمثل لتجربة قيادة مرموقة."
-    },
-    engine: "3.0L V6 TDI 286ch", 
-    transmission: { fr: "Tiptronic 8 rapports", en: "8-speed Tiptronic", ar: "تيبترونيك 8 سرعات" },
-    fuel: { fr: "Diesel", en: "Diesel", ar: "ديزل" }, 
-    status: 'disponible'
-  },
-  { 
-    id: 13, brand: "Citroën", name: "Citroën C3", price: 300, 
-    category: { fr: "Citadine", en: "City Car", ar: "سيارة مدينة" },
-    image: "/cars/c3.webp", 
-    specs: {
-      fr: ["Manuelle", "5 Sièges", "Essence", "Confort"],
-      en: ["Manual", "5 Seats", "Petrol", "Comfort"],
-      ar: ["يدوي", "5 مقاعد", "بنزين", "مريحة"]
-    },
-    details: {
-      fr: "Colorée et confortable, la citadine pétillante.",
-      en: "Colorful and comfortable, the sparkling city car.",
-      ar: "ملونة ومريحة، سيارة المدينة المتألقة."
-    },
-    fullDescription: {
-      fr: "La Citroën C3 se distingue par son design audacieux et ses Airbump®. Ses sièges Advanced Comfort garantissent une conduite détendue dans toutes les rues de Casablanca.",
-      en: "The Citroën C3 stands out with its bold design and Airbumps®. Its Advanced Comfort seats guarantee a relaxed drive in all the streets of Casablanca.",
-      ar: "تتميز ستروين C3 بتصميمها الجريء ونظام Airbump®. تضمن مقاعد الراحة المتقدمة قيادة مريحة في جميع شوارع الدار البيضاء."
-    },
-    engine: "1.2L PureTech 82ch", 
-    transmission: { fr: "Manuelle 5 rapports", en: "5-speed Manual", ar: "يدوي 5 سرعات" },
-    fuel: { fr: "Essence", en: "Petrol", ar: "بنزين" }, 
-    status: 'disponible'
-  },
-  { 
-    id: 3, brand: "Citroën", name: "Citroën C4", price: 550, 
-    category: { fr: "Berline", en: "Sedan", ar: "سيارة عائلية" },
-    image: "/cars/c4.webp", 
-    specs: {
-      fr: ["Automatique", "5 Sièges", "Confort", "Design"],
-      en: ["Automatic", "5 Seats", "Comfort", "Design"],
-      ar: ["أوتوماتيك", "5 مقاعد", "مريحة", "تصميم"]
-    },
-    details: {
-      fr: "Une berline surélevée au confort de suspension exceptionnel.",
-      en: "An elevated sedan with exceptional suspension comfort.",
-      ar: "سيارة عائلية مرتفعة براحة تعليق استثنائية."
-    },
-    fullDescription: {
-      fr: "La Citroën C4 réinvente la berline compacte. Avec son design unique mixant les codes de la berline et du SUV, elle offre un confort de suspension 'tapis volant' typique de Citroën.",
-      en: "The Citroën C4 reinvents the compact sedan. With its unique design mixing sedan and SUV codes, it offers 'magic carpet' suspension comfort typical of Citroën.",
-      ar: "ستروين C4 تعيد ابتكار السيارة العائلية المدمجة. بفضل تصميمها الفريد الذي يمزج بين خصائص السيارات العائلية والرياضية، فإنها توفر راحة تعليق 'البساط السحري' المميزة لشركة ستروين."
-    },
-    engine: "1.5L BlueHDi 130ch", 
-    transmission: { fr: "EAT8 Automatique", en: "EAT8 Automatic", ar: "EAT8 أوتوماتيك" },
-    fuel: { fr: "Diesel", en: "Diesel", ar: "ديزل" }, 
+    engine: "E-Tech Hybrid 145ch", 
+    transmission: { fr: "Automatique Multi-modes", en: "Multi-mode Automatic", ar: "أوتوماتيك متعدد الأوضاع" },
+    fuel: { fr: "Hybride", en: "Hybrid", ar: "هجينة" }, 
     status: 'disponible'
   },
   { 
@@ -283,54 +288,6 @@ export const INITIAL_CARS: Car[] = [
       fr: "Le C5 Aircross est conçu pour les longs trajets en toute sérénité. Ses sièges Advanced Comfort et son espace intérieur modulable en font le choix premium pour les familles exigeantes.",
       en: "The C5 Aircross is designed for serene long journeys. Its Advanced Comfort seats and modular interior space make it the premium choice for demanding families.",
       ar: "تم تصميم C5 Aircross للرحلات الطويلة بكل طمأنينة. مقاعد الراحة المتقدمة ومساحتها الداخلية المرنة تجعلها الخيار الأمثل للعائلات المتطلبة."
-    },
-    engine: "1.5L BlueHDi 130ch", 
-    transmission: { fr: "EAT8 Automatique", en: "EAT8 Automatic", ar: "EAT8 أوتوماتيك" },
-    fuel: { fr: "Diesel", en: "Diesel", ar: "ديزل" }, 
-    status: 'disponible'
-  },
-  { 
-    id: 2, brand: "Peugeot", name: "Peugeot 208", price: 400, 
-    category: { fr: "Citadine", en: "City Car", ar: "سيارة مدينة" },
-    image: "/cars/1758455-1920x1080-desktop-1080p-peugeot-208-wallpaper.webp", 
-    specs: {
-      fr: ["Manuelle", "5 Sièges", "i-Cockpit", "Ville"],
-      en: ["Manual", "5 Seats", "i-Cockpit", "City"],
-      ar: ["يدوي", "5 مقاعد", "i-Cockpit", "مدينة"]
-    },
-    details: {
-      fr: "Agile et irrésistible, la reine des rues de Casablanca.",
-      en: "Agile and irresistible, the queen of Casablanca's streets.",
-      ar: "رشيقة ولا تقاوم، ملكة شوارع الدار البيضاء."
-    },
-    fullDescription: {
-      fr: "La Peugeot 208 séduit par son style affirmé et sa technologie embarquée. Agile dans le trafic urbain, elle offre une conduite dynamique et économique sans compromis sur le confort.",
-      en: "The Peugeot 208 seduces with its assertive style and on-board technology. Agile in urban traffic, it offers dynamic and economical driving without compromising on comfort.",
-      ar: "تغري بيجو 208 بأسلوبها القوي والتكنولوجيا المدمجة. رشيقة في حركة المرور في المدينة، وتوفر قيادة ديناميكية واقتصادية دون المساومة على الراحة."
-    },
-    engine: "1.2L PureTech 75ch", 
-    transmission: { fr: "Manuelle 5 rapports", en: "5-speed Manual", ar: "يدوي 5 سرعات" },
-    fuel: { fr: "Essence", en: "Petrol", ar: "بنزين" }, 
-    status: 'disponible'
-  },
-  { 
-    id: 14, brand: "Peugeot", name: "Peugeot 2008", price: 550, 
-    category: { fr: "SUV", en: "SUV", ar: "سيارة رياضية" },
-    image: "/cars/1755809-1920x1080-desktop-1080p-peugeot-2008-background-photo.webp", 
-    specs: {
-      fr: ["Automatique", "5 Sièges", "Diesel", "Moderne"],
-      en: ["Automatic", "5 Seats", "Diesel", "Modern"],
-      ar: ["أوتوماتيك", "5 مقاعد", "ديزل", "عصرية"]
-    },
-    details: {
-      fr: "Le SUV compact au design futuriste et élégant.",
-      en: "The compact SUV with a futuristic and elegant design.",
-      ar: "سيارة رياضية مدمجة بتصميم مستقبلي وأنيق."
-    },
-    fullDescription: {
-      fr: "Le Peugeot 2008 offre une expérience de conduite enrichie grâce à son i-Cockpit® 3D. Un SUV compact qui ne passe pas inaperçu avec ses lignes acérées et sa signature lumineuse distinctive.",
-      en: "The Peugeot 2008 offers an enriched driving experience thanks to its i-Cockpit® 3D. A compact SUV that doesn't go unnoticed with its sharp lines and distinctive light signature.",
-      ar: "توفر بيجو 2008 تجربة قيادة غنية بفضل نظام i-Cockpit® 3D. سيارة رياضية مدمجة لا تمر دون أن يلاحظها أحد بخطوطها الحادة وتوقيعها الضوئي المميز."
     },
     engine: "1.5L BlueHDi 130ch", 
     transmission: { fr: "EAT8 Automatique", en: "EAT8 Automatic", ar: "EAT8 أوتوماتيك" },
@@ -362,6 +319,30 @@ export const INITIAL_CARS: Car[] = [
     status: 'disponible'
   },
   { 
+    id: 11, brand: "Volkswagen", name: "VW Tiguan", price: 750, 
+    category: { fr: "SUV", en: "SUV", ar: "سيارة رياضية" },
+    image: "/cars/tiguan.webp", 
+    specs: {
+      fr: ["Automatique", "5 Sièges", "Diesel", "Luxe"],
+      en: ["Automatic", "5 Seats", "Diesel", "Luxury"],
+      ar: ["أوتوماتيك", "5 مقاعد", "ديزل", "فاخرة"]
+    },
+    details: {
+      fr: "Polyvalence et confort haut de gamme pour toute la famille.",
+      en: "Versatility and premium comfort for the whole family.",
+      ar: "تعدد الاستخدامات وراحة راقية لجميع أفراد الأسرة."
+    },
+    fullDescription: {
+      fr: "Le Volkswagen Tiguan est la référence des SUV familiaux. Spacieux, technologique et extrêmement confortable, il vous accompagnera dans tous vos voyages avec une sérénité totale.",
+      en: "The Volkswagen Tiguan is the benchmark for family SUVs. Spacious, technological, and extremely comfortable, it will accompany you on all your travels with total peace of mind.",
+      ar: "فولكس فاجن تيغوان هي المرجع في السيارات الرياضية العائلية. واسعة وتكنولوجية ومريحة للغاية، سترافقكم في جميع رحلاتكم بكل طمأنينة."
+    },
+    engine: "2.0L TDI 150ch", 
+    transmission: { fr: "DSG Automatique", en: "DSG Automatic", ar: "DSG أوتوماتيك" },
+    fuel: { fr: "Diesel", en: "Diesel", ar: "ديزل" }, 
+    status: 'disponible'
+  },
+  { 
     id: 16, brand: "Peugeot", name: "Peugeot 5008", price: 850, 
     category: { fr: "SUV", en: "SUV", ar: "سيارة رياضية" },
     image: "/cars/peugeot-5008.webp", 
@@ -382,6 +363,30 @@ export const INITIAL_CARS: Car[] = [
     },
     engine: "1.5L BlueHDi 130ch", 
     transmission: { fr: "EAT8 Automatique", en: "EAT8 Automatic", ar: "EAT8 أوتوماتيك" },
+    fuel: { fr: "Diesel", en: "Diesel", ar: "ديزل" }, 
+    status: 'disponible'
+  },
+  { 
+    id: 12, brand: "Volkswagen", name: "VW Touareg", price: 1200, 
+    category: { fr: "SUV", en: "SUV", ar: "سيارة رياضية" },
+    image: "/cars/touareg.webp", 
+    specs: {
+      fr: ["Automatique", "5 Sièges", "Diesel", "Premium"],
+      en: ["Automatic", "5 Seats", "Diesel", "Premium"],
+      ar: ["أوتوماتيك", "5 مقاعد", "ديزل", "ممتازة"]
+    },
+    details: {
+      fr: "Le summum du luxe et de la puissance tout-terrain.",
+      en: "The pinnacle of luxury and off-road power.",
+      ar: "قمة الفخامة والقوة على جميع الطرقات."
+    },
+    fullDescription: {
+      fr: "Le VW Touareg est un chef-d'œuvre d'ingénierie. Offrant un luxe incomparable et des performances exceptionnelles, c'est le choix ultime pour une expérience de conduite prestigieuse.",
+      en: "The VW Touareg is a masterpiece of engineering. Offering incomparable luxury and exceptional performance, it is the ultimate choice for a prestigious driving experience.",
+      ar: "فولكس فاجن طوارق هي تحفة هندسية. توفر فخامة لا تضاهى وأداءً استثنائيًا، وهي الخيار الأمثل لتجربة قيادة مرموقة."
+    },
+    engine: "3.0L V6 TDI 286ch", 
+    transmission: { fr: "Tiptronic 8 rapports", en: "8-speed Tiptronic", ar: "تيبترونيك 8 سرعات" },
     fuel: { fr: "Diesel", en: "Diesel", ar: "ديزل" }, 
     status: 'disponible'
   }

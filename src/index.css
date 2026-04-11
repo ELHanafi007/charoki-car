@@ -194,4 +194,18 @@ p {
   .mobile-toggle { display: block !important; }
   .hero-title { font-size: 15vw; white-space: normal; line-height: 1; }
   .container { padding: 0 24px; }
+  
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 15px !important;
+  }
+  
+  .car-card .card-body {
+    padding: 1.2rem !important;
+  }
+  
+  .car-card h3 {
+    font-size: 1.1rem !important;
+    margin-bottom: 10px !important;
+  }
 }
