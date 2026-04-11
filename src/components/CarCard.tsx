@@ -10,7 +10,8 @@ interface CarCardProps {
 }
 
 const CarCard: React.FC<CarCardProps> = ({ car }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = (i18n.language as Language) || 'fr';
   
   return (
     <motion.div 
@@ -42,8 +43,8 @@ const CarCard: React.FC<CarCardProps> = ({ car }) => {
           <span style={{ fontSize: '0.6rem', color: 'var(--accent)', fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', display: 'block', marginBottom: '10px' }}>{car.brand}</span>
           <h3 style={{ fontSize: '1.8rem', marginBottom: '20px', color: 'var(--text-primary)' }}>{car.name}</h3>
           <div style={{ display: 'flex', gap: '20px', marginBottom: '25px', color: 'var(--text-secondary)', fontSize: '0.75rem', fontWeight: 500 }}>
-            <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Zap size={14} color="var(--accent)" /> {car.transmission}</span>
-            <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Fuel size={14} color="var(--accent)" /> {car.fuel}</span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Zap size={14} color="var(--accent)" /> {car.transmission[lang]}</span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Fuel size={14} color="var(--accent)" /> {car.fuel[lang]}</span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--border-light)', paddingTop: '20px' }}>
             <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-primary)' }}>{car.price} MAD <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 400 }}>{t('car.per_day')}</span></div>

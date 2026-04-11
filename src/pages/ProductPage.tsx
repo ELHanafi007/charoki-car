@@ -7,7 +7,8 @@ import { useCars } from '../context/CarContext';
 import DateSelectionBar from '../components/DateSelectionBar';
 
 const ProductPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = (i18n.language as Language) || 'fr';
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { getCarById } = useCars();
@@ -57,7 +58,7 @@ const ProductPage: React.FC = () => {
               <div style={{ color: 'var(--accent)', fontWeight: 800, fontSize: '0.7rem', letterSpacing: '0.3em', marginBottom: '15px' }}>{car.brand.toUpperCase()}</div>
               <h1 style={{ fontSize: '4rem', marginBottom: '25px' }}>{car.name}</h1>
               <div style={{ display: 'flex', gap: '15px', marginBottom: '40px' }}>
-                <span style={{ border: '1px solid var(--border)', padding: '6px 18px', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em' }}>{car.category}</span>
+                <span style={{ border: '1px solid var(--border)', padding: '6px 18px', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em' }}>{car.category[lang]}</span>
                 <span style={{ 
                   background: car.status === 'disponible' ? 'var(--accent)' : '#e67e22', 
                   color: '#fff', 
@@ -66,10 +67,10 @@ const ProductPage: React.FC = () => {
                   fontWeight: 700, 
                   letterSpacing: '0.1em' 
                 }}>
-                  {car.status.toUpperCase()}
+                  {car.status === 'disponible' ? t('admin.disp') : t('admin.rent')}
                 </span>
               </div>
-              <p style={{ fontSize: '1.1rem', lineHeight: 1.8, marginBottom: '50px' }}>{car.fullDescription}</p>
+              <p style={{ fontSize: '1.1rem', lineHeight: 1.8, marginBottom: '50px' }}>{car.fullDescription[lang]}</p>
               
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '20px' }}>
                 <div style={{ padding: '30px', background: 'var(--bg-secondary)', border: '1px solid var(--border)' }}>
@@ -78,11 +79,11 @@ const ProductPage: React.FC = () => {
                 </div>
                 <div style={{ padding: '30px', background: 'var(--bg-secondary)', border: '1px solid var(--border)' }}>
                   <div style={{ fontSize: '0.6rem', fontWeight: 800, opacity: 0.5, letterSpacing: '0.1em', marginBottom: '10px' }}>{t('car.transmission')}</div>
-                  <div style={{ fontWeight: 700 }}>{car.transmission}</div>
+                  <div style={{ fontWeight: 700 }}>{car.transmission[lang]}</div>
                 </div>
                 <div style={{ padding: '30px', background: 'var(--bg-secondary)', border: '1px solid var(--border)' }}>
                   <div style={{ fontSize: '0.6rem', fontWeight: 800, opacity: 0.5, letterSpacing: '0.1em', marginBottom: '10px' }}>{t('car.fuel')}</div>
-                  <div style={{ fontWeight: 700 }}>{car.fuel}</div>
+                  <div style={{ fontWeight: 700 }}>{car.fuel[lang]}</div>
                 </div>
               </div>
             </div>

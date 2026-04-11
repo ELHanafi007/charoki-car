@@ -7,7 +7,8 @@ import { motion } from 'framer-motion';
 const ADMIN_CODE = "15139922";
 
 const Admin: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = (i18n.language as Language) || 'fr';
   const [code, setCode] = useState('');
   const [isAuthorized, setIsAuthorized] = useState(false);
   const { cars, updateCarPrice, updateCarStatus } = useCars();
@@ -111,13 +112,14 @@ const Admin: React.FC = () => {
                 <tr key={car.id} style={{ borderBottom: '1px solid var(--border-light)' }}>
                   <td style={{ padding: '25px 30px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                      <img src={car.image} style={{ width: '60px', height: '40px', objectFit: 'cover' }} />
+                      <img src={car.image} alt="" style={{ width: '60px', height: '40px', objectFit: 'cover' }} />
                       <div>
                         <div style={{ fontWeight: 700, fontSize: '0.9rem' }}>{car.name}</div>
-                        <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>{car.category} • {car.transmission}</div>
+                        <div style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', fontWeight: 600, letterSpacing: '0.05em' }}>{car.category[lang]}</div>
                       </div>
                     </div>
                   </td>
+
                   <td style={{ padding: '25px 30px' }}>
                     {editingCar === car.id ? (
                       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -166,6 +168,7 @@ const Admin: React.FC = () => {
                       >
                         {t('admin.rent')}
                       </button>
+
                     </div>
                   </td>
                   <td style={{ padding: '25px 30px', textAlign: 'right' }}>

@@ -5,7 +5,8 @@ import SectionTitle from '../components/SectionTitle';
 import CarCard from '../components/CarCard';
 
 const Fleet: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = (i18n.language as Language) || 'fr';
   const { cars } = useCars();
   const [filter, setFilter] = useState('all');
 
@@ -16,7 +17,7 @@ const Fleet: React.FC = () => {
     { id: 'Berline', label: t('filters.sedan') }
   ];
 
-  const filtered = filter === 'all' ? cars : cars.filter(c => c.category === filter);
+  const filtered = filter === 'all' ? cars : cars.filter(c => c.category.fr === filter);
 
   return (
     <section style={{ paddingTop: '180px', paddingBottom: '140px' }}>
