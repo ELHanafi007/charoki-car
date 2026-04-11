@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ShieldCheck, Clock, MapPin } from 'lucide-react';
 import { useCars } from '../context/CarContext';
 import DateSelectionBar from '../components/DateSelectionBar';
 
 const ProductPage: React.FC = () => {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { getCarById } = useCars();
@@ -17,8 +19,8 @@ const ProductPage: React.FC = () => {
   if (!car) {
     return (
       <div style={{ paddingTop: '200px', textAlign: 'center' }}>
-        <h2>Véhicule non trouvé</h2>
-        <Link to="/fleet">Retour au parc</Link>
+        <h2>Vehicle not found</h2>
+        <Link to="/fleet">Back to fleet</Link>
       </div>
     );
   }
@@ -39,10 +41,10 @@ const ProductPage: React.FC = () => {
           onClick={() => navigate('/fleet')} 
           style={{ border: 'none', background: 'transparent', display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '50px', cursor: 'pointer', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--text-secondary)' }}
         >
-          <ArrowLeft size={16} /> RETOUR AU PARC
+          <ArrowLeft size={16} /> {t('car.back')}
         </button>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '80px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '80px' }}>
           <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}>
             <img src={car.image} alt={car.name} style={{ width: '100%', height: '550px', objectFit: 'cover', border: '1px solid var(--border)' }} />
             <div style={{ marginTop: '50px' }}>
@@ -63,17 +65,17 @@ const ProductPage: React.FC = () => {
               </div>
               <p style={{ fontSize: '1.1rem', lineHeight: 1.8, marginBottom: '50px' }}>{car.fullDescription}</p>
               
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '20px' }}>
                 <div style={{ padding: '30px', background: 'var(--bg-secondary)', border: '1px solid var(--border)' }}>
-                  <div style={{ fontSize: '0.6rem', fontWeight: 800, opacity: 0.5, letterSpacing: '0.1em', marginBottom: '10px' }}>MOTEUR</div>
+                  <div style={{ fontSize: '0.6rem', fontWeight: 800, opacity: 0.5, letterSpacing: '0.1em', marginBottom: '10px' }}>{t('car.engine')}</div>
                   <div style={{ fontWeight: 700 }}>{car.engine}</div>
                 </div>
                 <div style={{ padding: '30px', background: 'var(--bg-secondary)', border: '1px solid var(--border)' }}>
-                  <div style={{ fontSize: '0.6rem', fontWeight: 800, opacity: 0.5, letterSpacing: '0.1em', marginBottom: '10px' }}>TRANSMISSION</div>
+                  <div style={{ fontSize: '0.6rem', fontWeight: 800, opacity: 0.5, letterSpacing: '0.1em', marginBottom: '10px' }}>{t('car.transmission')}</div>
                   <div style={{ fontWeight: 700 }}>{car.transmission}</div>
                 </div>
                 <div style={{ padding: '30px', background: 'var(--bg-secondary)', border: '1px solid var(--border)' }}>
-                  <div style={{ fontSize: '0.6rem', fontWeight: 800, opacity: 0.5, letterSpacing: '0.1em', marginBottom: '10px' }}>CARBURANT</div>
+                  <div style={{ fontSize: '0.6rem', fontWeight: 800, opacity: 0.5, letterSpacing: '0.1em', marginBottom: '10px' }}>{t('car.fuel')}</div>
                   <div style={{ fontWeight: 700 }}>{car.fuel}</div>
                 </div>
               </div>
@@ -82,17 +84,17 @@ const ProductPage: React.FC = () => {
 
           <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} style={{ position: 'sticky', top: '140px', height: 'fit-content' }}>
             <div style={{ padding: '50px', border: '1px solid var(--border)', background: '#fff', boxShadow: '0 10px 40px rgba(0,0,0,0.04)' }}>
-              <div style={{ fontSize: '0.6rem', fontWeight: 800, opacity: 0.5, letterSpacing: '0.1em', marginBottom: '10px' }}>TARIF EXCLUSIF</div>
-              <div style={{ fontSize: '2.8rem', fontWeight: 800, marginBottom: '40px' }}>{car.price} MAD <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', fontWeight: 400 }}>/ jour</span></div>
+              <div style={{ fontSize: '0.6rem', fontWeight: 800, opacity: 0.5, letterSpacing: '0.1em', marginBottom: '10px' }}>{t('car.details')}</div>
+              <div style={{ fontSize: '2.8rem', fontWeight: 800, marginBottom: '40px' }}>{car.price} MAD <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', fontWeight: 400 }}>{t('car.per_day')}</span></div>
               
               <div style={{ display: 'grid', gap: '25px', marginBottom: '40px' }}>
                 <DateSelectionBar 
-                  label="Prise en charge"
+                  label={t('booking.start')}
                   value={start}
                   onChange={setStart}
                 />
                 <DateSelectionBar 
-                  label="Restitution"
+                  label={t('booking.end')}
                   value={end}
                   onChange={setEnd}
                 />
@@ -100,7 +102,7 @@ const ProductPage: React.FC = () => {
 
               {days > 0 && (
                 <div style={{ padding: '25px', background: 'var(--bg-secondary)', marginBottom: '40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: '0.7rem', fontWeight: 800 }}>TOTAL ({days} JOURS)</span>
+                  <span style={{ fontSize: '0.7rem', fontWeight: 800 }}>{t('car.total')} ({days} {t('car.days')})</span>
                   <div style={{ fontSize: '1.5rem', fontWeight: 800 }}>{days * car.price} MAD</div>
                 </div>
               )}
@@ -111,21 +113,21 @@ const ProductPage: React.FC = () => {
                 onClick={() => navigate(`/booking/${car.id}?start=${start}&end=${end}`)}
                 disabled={car.status === 'loué'}
               >
-                {car.status === 'loué' ? 'VÉHICULE NON DISPONIBLE' : 'RÉSERVER CE VÉHICULE'}
+                {car.status === 'loué' ? t('car.unavailable') : t('car.reserve')}
               </button>
               
               <div style={{ marginTop: '40px', borderTop: '1px solid var(--border-light)', paddingTop: '30px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '20px' }}>
                   <ShieldCheck size={20} color="var(--accent)" />
-                  <span style={{ fontSize: '0.85rem' }}>Assurance tous risques incluse</span>
+                  <span style={{ fontSize: '0.85rem' }}>{t('car.insurance')}</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '20px' }}>
                   <MapPin size={20} color="var(--accent)" />
-                  <span style={{ fontSize: '0.85rem' }}>Livraison Casablanca incluse</span>
+                  <span style={{ fontSize: '0.85rem' }}>{t('car.delivery')}</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                   <Clock size={20} color="var(--accent)" />
-                  <span style={{ fontSize: '0.85rem' }}>Assistance 24h/24 & 7j/7</span>
+                  <span style={{ fontSize: '0.85rem' }}>{t('car.assistance')}</span>
                 </div>
               </div>
             </div>

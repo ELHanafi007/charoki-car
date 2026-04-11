@@ -32,10 +32,10 @@ const Hero: React.FC = () => {
           transition={{ duration: 1, delay: 0.5 }}
         >
           <h1 className="hero-title serif" style={{ color: '#fff', fontSize: 'clamp(4rem, 12vw, 10rem)', lineHeight: 0.9, marginBottom: '40px' }}>
-            CHAROKI <br /> <span style={{ fontStyle: 'italic', fontWeight: 300, color: 'var(--accent)' }}>CARS</span>
+            {t('hero.title_luxury')} <br /> <span style={{ fontStyle: 'italic', fontWeight: 300, color: 'var(--accent)' }}>{t('hero.title_car')}</span>
           </h1>
           <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto 50px', fontWeight: 300, letterSpacing: '0.05em' }}>
-            L'excellence de la mobilité premium à Casablanca. <br /> Redécouvrez le voyage avec notre collection exclusive.
+            {t('hero.subtitle')}
           </p>
           <div style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
              <Link to="/fleet" className="btn-primary" style={{ padding: '22px 50px', background: 'var(--accent)', color: '#fff', border: 'none', textDecoration: 'none' }}>{t('hero.browse')}</Link>
@@ -49,7 +49,7 @@ const Hero: React.FC = () => {
         transition={{ delay: 1.5, duration: 1 }}
         style={{ position: 'absolute', bottom: '40px', left: '50%', transform: 'translateX(-50%)', color: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}
       >
-        <span style={{ fontSize: '0.6rem', letterSpacing: '0.3em', opacity: 0.5 }}>SCROLL</span>
+        <span style={{ fontSize: '0.6rem', letterSpacing: '0.3em', opacity: 0.5 }}>{t('hero.scroll')}</span>
         <div style={{ width: '1px', height: '60px', background: 'linear-gradient(to bottom, var(--accent), transparent)' }}></div>
       </motion.div>
     </section>
@@ -69,15 +69,15 @@ const Home: React.FC = () => {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '80px', alignItems: 'center' }}>
             <div>
               <SectionTitle title={t('sections.excellence')} subtitle={t('sections.vision')} centered={false} />
-              <p style={{ marginBottom: '35px', fontSize: '1.1rem' }}>CHAROKI CARS redéfinit les standards de la location premium au Maroc, avec un parc exclusif et un service sur-mesure.</p>
+              <p style={{ marginBottom: '35px', fontSize: '1.1rem' }}>{t('sections.vision_text')}</p>
               <div style={{ display: 'grid', gap: '30px' }}>
                 <div style={{ display: 'flex', gap: '20px' }}>
                   <ShieldCheck color="var(--accent)" size={28} />
-                  <div><h4 style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '5px' }}>SÉRÉNITÉ</h4><p style={{ fontSize: '0.9rem' }}>Assurance tous risques et assistance 24/7 incluse.</p></div>
+                  <div><h4 style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '5px' }}>{t('sections.serenity_title')}</h4><p style={{ fontSize: '0.9rem' }}>{t('sections.serenity_text')}</p></div>
                 </div>
                 <div style={{ display: 'flex', gap: '20px' }}>
                   <MapPin color="var(--accent)" size={28} />
-                  <div><h4 style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '5px' }}>LIVRAISON</h4><p style={{ fontSize: '0.9rem' }}>Aéroport, domicile ou bureau selon vos besoins.</p></div>
+                  <div><h4 style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '5px' }}>{t('sections.delivery_title')}</h4><p style={{ fontSize: '0.9rem' }}>{t('sections.delivery_text')}</p></div>
                 </div>
               </div>
             </div>
@@ -95,14 +95,14 @@ const Home: React.FC = () => {
             {cars.slice(0, 3).map(car => <CarCard key={car.id} car={car} />)}
           </div>
           <div style={{ textAlign: 'center', marginTop: '70px' }}>
-            <Link to="/fleet" className="btn-outline" style={{ border: '1px solid #000', padding: '15px 40px', textDecoration: 'none', color: '#000', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em' }}>VOIR TOUTE LA COLLECTION</Link>
+            <Link to="/fleet" className="btn-outline" style={{ border: '1px solid #000', padding: '15px 40px', textDecoration: 'none', color: '#000', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em' }}>{t('sections.view_all')}</Link>
           </div>
         </div>
       </section>
 
       <section style={{ padding: '140px 0' }}>
         <div className="container">
-          <SectionTitle title={t('sections.testimonials')} subtitle="TEMOIGNAGES" />
+          <SectionTitle title={t('sections.testimonials')} subtitle={t('sections.testimonials')} />
           <div className="grid-3" style={{ gap: '40px' }}>
             {TESTIMONIALS.map(t => (
               <div key={t.id} style={{ textAlign: 'center', padding: '40px', background: 'var(--bg-secondary)', borderRadius: '2px' }}>
@@ -120,7 +120,7 @@ const Home: React.FC = () => {
       <section style={{ padding: '140px 0', background: 'var(--bg-secondary)', borderTop: '1px solid var(--border)' }}>
         <div className="container">
           <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-            <SectionTitle title="FAQ" subtitle={t('sections.faq')} />
+            <SectionTitle title={t('sections.faq')} subtitle={t('sections.faq')} />
             {FAQS.map((faq, i) => (
               <details key={i} style={{ borderBottom: '1px solid var(--border)', padding: '25px 0', cursor: 'pointer' }}>
                 <summary style={{ listStyle: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '1.1rem', fontWeight: 600 }}>

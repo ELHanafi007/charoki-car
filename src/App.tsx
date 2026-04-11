@@ -5,6 +5,7 @@ import './i18n/config';
 
 // Layout
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 // Pages
 import Home from './pages/Home';
@@ -34,11 +35,10 @@ const App: React.FC = () => {
             <Route path="/booking/:id" element={<Booking />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/admin" element={<Admin />} />
-            {/* Fallback */}
             <Route path="*" element={<Home />} />
           </Routes>
         </main>
-        {/* Footer could be added here */}
+        <Footer />
       </Router>
     </CarProvider>
   );

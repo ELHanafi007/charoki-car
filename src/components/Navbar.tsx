@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
       <nav className={`glass-nav ${isScrolled || !isHome ? 'scrolled' : ''}`}>
         <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Link to="/" className="logo" style={{ fontSize: '1.2rem', fontWeight: 800, letterSpacing: '3px', cursor: 'pointer', color: 'var(--text-primary)', textDecoration: 'none' }}>
-            CHAROKI<span style={{ color: 'var(--accent)' }}>CARS</span>
+            CHAROKI<span style={{ color: 'var(--accent)' }}>CAR</span>
           </Link>
           
           <div className="desktop-menu" style={{ display: 'flex', gap: '45px', alignItems: 'center' }}>
@@ -76,7 +76,7 @@ const Navbar: React.FC = () => {
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '80px' }}>
               <div className="logo" style={{ fontSize: '1.2rem', fontWeight: 800, letterSpacing: '3px', color: 'var(--text-primary)' }}>
-                CHAROKI<span style={{ color: 'var(--accent)' }}>CARS</span>
+                CHAROKI<span style={{ color: 'var(--accent)' }}>CAR</span>
               </div>
               <div style={{ cursor: 'pointer' }} onClick={() => setIsMobileMenuOpen(false)}>
                 <X size={32} color="var(--text-primary)" />
