@@ -6,6 +6,7 @@ import { ShieldCheck, MapPin, Star, ChevronDown } from 'lucide-react';
 import { useCars } from '../context/CarContext';
 import SectionTitle from '../components/SectionTitle';
 import CarCard from '../components/CarCard';
+import SEOContent from '../components/SEOContent';
 import { TESTIMONIALS, FAQS } from '../data/constants';
 
 const Hero: React.FC = () => {
@@ -119,30 +120,29 @@ const Home: React.FC = () => {
               </div>
             ))}
           </div>
-        import CarCard from '../components/CarCard';
-        import SEOContent from '../components/SEOContent';
-        import { TESTIMONIALS, FAQS } from '../data/constants';
-        ...
-              <section style={{ padding: '140px 0', background: 'var(--bg-secondary)', borderTop: '1px solid var(--border)' }}>
-                <div className="container">
-                  <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-                    <SectionTitle title={t('sections.faq')} subtitle={t('sections.faq')} />
-                    {FAQS.map((faq, i) => (
-                      <details key={i} style={{ borderBottom: '1px solid var(--border)', padding: '25px 0', cursor: 'pointer' }}>
-                        <summary style={{ listStyle: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '1.1rem', fontWeight: 600 }}>
-                          {faq.question}
-                          <ChevronDown size={18} color="var(--accent)" />
-                        </summary>
-                        <p style={{ marginTop: '20px', fontSize: '0.95rem', lineHeight: 1.7 }}>{faq.answer}</p>
-                      </details>
-                    ))}
-                  </div>
-                </div>
-              </section>
+        </div>
+      </section>
 
-              <SEOContent />
-            </motion.div>
-          );
-        };
+      <section style={{ padding: '140px 0', background: 'var(--bg-secondary)', borderTop: '1px solid var(--border)' }}>
+        <div className="container">
+          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+            <SectionTitle title={t('sections.faq')} subtitle={t('sections.faq')} />
+            {FAQS.map((faq, i) => (
+              <details key={i} style={{ borderBottom: '1px solid var(--border)', padding: '25px 0', cursor: 'pointer' }}>
+                <summary style={{ listStyle: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '1.1rem', fontWeight: 600 }}>
+                  {faq.question}
+                  <ChevronDown size={18} color="var(--accent)" />
+                </summary>
+                <p style={{ marginTop: '20px', fontSize: '0.95rem', lineHeight: 1.7 }}>{faq.answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <SEOContent />
+    </motion.div>
+  );
+};
 
 export default Home;
