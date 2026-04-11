@@ -9,7 +9,11 @@ import type { Language } from '../types';
 
 const ProductPage: React.FC = () => {
   const { t, i18n } = useTranslation();
-  const lang = (i18n.language as Language) || 'fr';
+  
+  // Normalize language to 'fr', 'en', or 'ar'
+  const currentLang = i18n.language?.split('-')[0] || 'fr';
+  const lang = (['fr', 'en', 'ar'].includes(currentLang) ? currentLang : 'fr') as Language;
+  
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { getCarById } = useCars();

@@ -11,7 +11,12 @@ interface CarCardProps {
 
 const CarCard: React.FC<CarCardProps> = ({ car }) => {
   const { t, i18n } = useTranslation();
-  const lang = (i18n.language as Language) || 'fr';
+  
+  // Normalize language to 'fr', 'en', or 'ar'
+  const currentLang = i18n.language?.split('-')[0] || 'fr';
+  const lang = (['fr', 'en', 'ar'].includes(currentLang) ? currentLang : 'fr') as Language;
+  
+  const transmissionText = car.transmission[lang] || '';
   
   return (
     <motion.div 
@@ -43,7 +48,7 @@ const CarCard: React.FC<CarCardProps> = ({ car }) => {
           <span style={{ fontSize: '0.55rem', color: 'var(--accent)', fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>{car.brand}</span>
           <h3 style={{ fontSize: '1.4rem', marginBottom: '15px', color: 'var(--text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{car.name}</h3>
           <div style={{ display: 'flex', gap: '12px', marginBottom: '20px', color: 'var(--text-secondary)', fontSize: '0.65rem', fontWeight: 500 }}>
-            <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Zap size={12} color="var(--accent)" /> {car.transmission[lang].split(' ')[0]}</span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Zap size={12} color="var(--accent)" /> {transmissionText.split(' ')[0]}</span>
             <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Fuel size={12} color="var(--accent)" /> {car.fuel[lang]}</span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--border-light)', paddingTop: '15px' }}>
