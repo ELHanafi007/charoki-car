@@ -8,55 +8,50 @@ import SectionTitle from '../components/SectionTitle';
 import CarCard from '../components/CarCard';
 import { TESTIMONIALS, FAQS } from '../data/constants';
 
-const MaskHero: React.FC = () => {
+const Hero: React.FC = () => {
   const { t } = useTranslation();
-  const mouseX = useMotionValue(50);
-  const springX = useSpring(mouseX, { stiffness: 100, damping: 30 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const p = (e.clientX / window.innerWidth) * 100;
-      mouseX.set(p);
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [mouseX]);
-
-  const [clipPath, setClipPath] = useState('inset(0 0 0 50%)');
-  useEffect(() => {
-    return springX.on("change", (latest) => {
-      setClipPath(`inset(0 0 0 ${latest}%)`);
-    });
-  }, [springX]);
-
+  
   return (
-    <section className="mask-hero">
-      <div className="hero-layer layer-base">
-        <div className="container hero-content-wrapper">
-          <motion.h1 initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2 }} className="hero-title text-black serif">
-            CHAROKI <br /> <span style={{ fontStyle: 'italic', fontWeight: 300 }}>CARS</span>
-          </motion.h1>
-          <div style={{ marginTop: '40px', display: 'flex', gap: '20px', justifyContent: 'center' }}>
-             <Link to="/fleet" className="btn-primary" style={{ textDecoration: 'none' }}>{t('hero.browse')}</Link>
-             <Link to="/contact" className="btn-outline" style={{ border: '1px solid #000', padding: '20px 45px', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.25em', textDecoration: 'none', color: '#000' }}>{t('hero.contact')}</Link>
-          </div>
-        </div>
-      </div>
-
-      <div className="hero-layer layer-overlay" style={{ 
-        backgroundImage: `url(https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&q=80&w=2070)`,
-        clipPath: clipPath
-      }}>
-        <div className="container hero-content-wrapper">
-          <h1 className="hero-title text-reveal serif">
-            CHAROKI <br /> <span style={{ fontStyle: 'italic', fontWeight: 300 }}>CARS</span>
+    <section className="premium-hero" style={{ height: '100vh', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#000' }}>
+      <motion.div 
+        initial={{ scale: 1.1, opacity: 0 }}
+        animate={{ scale: 1, opacity: 0.6 }}
+        transition={{ duration: 2, ease: "easeOut" }}
+        style={{ 
+          position: 'absolute', 
+          inset: 0, 
+          backgroundImage: `url(https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&q=80&w=2070)`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }} 
+      />
+      <div className="container" style={{ position: 'relative', zIndex: 2, textAlign: 'center' }}>
+        <motion.div
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
+        >
+          <h1 className="hero-title serif" style={{ color: '#fff', fontSize: 'clamp(4rem, 12vw, 10rem)', lineHeight: 0.9, marginBottom: '40px' }}>
+            CHAROKI <br /> <span style={{ fontStyle: 'italic', fontWeight: 300, color: 'var(--accent)' }}>CARS</span>
           </h1>
-          <div style={{ marginTop: '40px', display: 'flex', gap: '20px', justifyContent: 'center' }}>
-             <Link to="/fleet" className="btn-primary" style={{ background: '#fff', color: '#000', textDecoration: 'none' }}>{t('hero.browse')}</Link>
-             <Link to="/contact" className="btn-outline" style={{ borderColor: '#fff', color: '#fff', border: '1px solid #fff', padding: '20px 45px', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.25em', textDecoration: 'none' }}>{t('hero.contact')}</Link>
+          <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto 50px', fontWeight: 300, letterSpacing: '0.05em' }}>
+            L'excellence de la mobilité premium à Casablanca. <br /> Redécouvrez le voyage avec notre collection exclusive.
+          </p>
+          <div style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
+             <Link to="/fleet" className="btn-primary" style={{ padding: '22px 50px', background: 'var(--accent)', color: '#fff', border: 'none', textDecoration: 'none' }}>{t('hero.browse')}</Link>
+             <Link to="/contact" className="btn-outline" style={{ padding: '22px 50px', border: '1px solid #fff', color: '#fff', textDecoration: 'none', fontWeight: 700, fontSize: '0.65rem', letterSpacing: '0.25em' }}>{t('hero.contact')}</Link>
           </div>
-        </div>
+        </motion.div>
       </div>
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 1 }}
+        style={{ position: 'absolute', bottom: '40px', left: '50%', transform: 'translateX(-50%)', color: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}
+      >
+        <span style={{ fontSize: '0.6rem', letterSpacing: '0.3em', opacity: 0.5 }}>SCROLL</span>
+        <div style={{ width: '1px', height: '60px', background: 'linear-gradient(to bottom, var(--accent), transparent)' }}></div>
+      </motion.div>
     </section>
   );
 };
@@ -67,7 +62,7 @@ const Home: React.FC = () => {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-      <MaskHero />
+      <Hero />
 
       <section style={{ padding: '140px 0', background: '#fff' }}>
         <div className="container">

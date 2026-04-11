@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ShieldCheck, Clock, MapPin } from 'lucide-react';
 import { useCars } from '../context/CarContext';
+import DateSelectionBar from '../components/DateSelectionBar';
 
 const ProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -84,25 +85,17 @@ const ProductPage: React.FC = () => {
               <div style={{ fontSize: '0.6rem', fontWeight: 800, opacity: 0.5, letterSpacing: '0.1em', marginBottom: '10px' }}>TARIF EXCLUSIF</div>
               <div style={{ fontSize: '2.8rem', fontWeight: 800, marginBottom: '40px' }}>{car.price} MAD <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', fontWeight: 400 }}>/ jour</span></div>
               
-              <div style={{ display: 'grid', gap: '20px', marginBottom: '40px' }}>
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.65rem', fontWeight: 800, marginBottom: '10px' }}>DÉBUT</label>
-                  <input 
-                    type="date" 
-                    style={{ width: '100%', padding: '15px', border: '1px solid var(--border)', fontSize: '0.9rem' }} 
-                    value={start} 
-                    onChange={e => setStart(e.target.value)} 
-                  />
-                </div>
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.65rem', fontWeight: 800, marginBottom: '10px' }}>RETOUR</label>
-                  <input 
-                    type="date" 
-                    style={{ width: '100%', padding: '15px', border: '1px solid var(--border)', fontSize: '0.9rem' }} 
-                    value={end} 
-                    onChange={e => setEnd(e.target.value)} 
-                  />
-                </div>
+              <div style={{ display: 'grid', gap: '25px', marginBottom: '40px' }}>
+                <DateSelectionBar 
+                  label="Prise en charge"
+                  value={start}
+                  onChange={setStart}
+                />
+                <DateSelectionBar 
+                  label="Restitution"
+                  value={end}
+                  onChange={setEnd}
+                />
               </div>
 
               {days > 0 && (

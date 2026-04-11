@@ -3,6 +3,7 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useCars } from '../context/CarContext';
 import { WHATSAPP_NUMBER } from '../data/constants';
+import DateSelectionBar from '../components/DateSelectionBar';
 
 const Booking: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -47,24 +48,16 @@ const Booking: React.FC = () => {
             
             {step === 1 ? (
               <div style={{ display: 'grid', gap: '30px' }}>
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', marginBottom: '10px' }}>DÉBUT DE LOCATION</label>
-                  <input 
-                    type="date" 
-                    style={{ width: '100%', padding: '15px', border: '1px solid var(--border)', fontSize: '0.9rem' }} 
-                    value={form.start} 
-                    onChange={e => setForm({...form, start: e.target.value})} 
-                  />
-                </div>
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', marginBottom: '10px' }}>FIN DE LOCATION</label>
-                  <input 
-                    type="date" 
-                    style={{ width: '100%', padding: '15px', border: '1px solid var(--border)', fontSize: '0.9rem' }} 
-                    value={form.end} 
-                    onChange={e => setForm({...form, end: e.target.value})} 
-                  />
-                </div>
+                <DateSelectionBar 
+                  label="DÉBUT DE LOCATION"
+                  value={form.start}
+                  onChange={(val) => setForm({...form, start: val})}
+                />
+                <DateSelectionBar 
+                  label="FIN DE LOCATION"
+                  value={form.end}
+                  onChange={(val) => setForm({...form, end: val})}
+                />
                 <button className="btn-primary" onClick={() => setStep(2)} disabled={days <= 0}>SUIVANT</button>
               </div>
             ) : (
@@ -73,7 +66,7 @@ const Booking: React.FC = () => {
                   <label style={{ display: 'block', fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', marginBottom: '10px' }}>VOTRE NOM COMPLET</label>
                   <input 
                     placeholder="Ex: Youssef El Amrani"
-                    style={{ width: '100%', padding: '15px', border: '1px solid var(--border)', fontSize: '0.9rem' }} 
+                    style={{ width: '100%', padding: '15px', border: '1px solid var(--border)', fontSize: '0.9rem', background: 'var(--bg-secondary)', fontWeight: 600 }} 
                     value={form.name} 
                     onChange={e => setForm({...form, name: e.target.value})} 
                   />
@@ -82,7 +75,7 @@ const Booking: React.FC = () => {
                   <label style={{ display: 'block', fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', marginBottom: '10px' }}>VOTRE TÉLÉPHONE</label>
                   <input 
                     placeholder="Ex: 06 00 00 00 00"
-                    style={{ width: '100%', padding: '15px', border: '1px solid var(--border)', fontSize: '0.9rem' }} 
+                    style={{ width: '100%', padding: '15px', border: '1px solid var(--border)', fontSize: '0.9rem', background: 'var(--bg-secondary)', fontWeight: 600 }} 
                     value={form.phone} 
                     onChange={e => setForm({...form, phone: e.target.value})} 
                   />
