@@ -55,17 +55,5 @@
       ]
     }
   ],
-  "redirects": [
-    {
-      "source": "/",
-      "has": [
-        {
-          "type": "host",
-          "value": "charoki-car.vercel.app"
-        }
-      ],
-      "destination": "https://charokicar.com/",
-      "permanent": true
-    }
-  ]
+  "redirects": []
 }
