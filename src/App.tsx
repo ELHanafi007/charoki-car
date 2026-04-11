@@ -91,7 +91,6 @@ const FAQS = [
 
 const WHATSAPP_NUMBER = "+212700382718";
 
-// --- UTILS ---
 const calculateDays = (start: string, end: string) => {
   if (!start || !end) return 0;
   const s = new Date(start);
@@ -101,14 +100,13 @@ const calculateDays = (start: string, end: string) => {
   return days > 0 ? days : 0;
 };
 
-// --- REUSABLE COMPONENTS ---
 const SectionTitle = ({ title, subtitle, centered = true }: { title: string, subtitle: string, centered?: boolean }) => (
-  <div style={{ marginBottom: '80px', textAlign: centered ? 'center' : 'left' }}>
+  <div style={{ marginBottom: '60px', textAlign: centered ? 'center' : 'left' }}>
     <motion.span 
-      initial={{ opacity: 0, letterSpacing: '0em' }} 
-      whileInView={{ opacity: 1, letterSpacing: '0.3em' }} 
+      initial={{ opacity: 0, y: 10 }} 
+      whileInView={{ opacity: 0.6, y: 0 }} 
       viewport={{ once: true }} 
-      style={{ color: 'var(--accent)', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', display: 'block', marginBottom: '15px' }}
+      style={{ color: 'var(--text-primary)', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', display: 'block', marginBottom: '15px', letterSpacing: '0.3em' }}
     >
       {subtitle}
     </motion.span>
@@ -116,10 +114,11 @@ const SectionTitle = ({ title, subtitle, centered = true }: { title: string, sub
       initial={{ opacity: 0, y: 30 }} 
       whileInView={{ opacity: 1, y: 0 }} 
       viewport={{ once: true }} 
-      style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: 1 }}
+      style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', color: 'var(--text-primary)' }}
     >
       {title}
     </motion.h2>
+    <div style={{ width: '40px', height: '1px', background: 'var(--accent)', margin: centered ? '30px auto 0' : '30px 0 0' }}></div>
   </div>
 );
 
@@ -143,26 +142,26 @@ const Navbar = ({ activePage, setPage }: { activePage: string, setPage: (p: stri
     <>
       <nav className={`glass-nav ${isScrolled || activePage !== 'home' ? 'scrolled' : ''}`}>
         <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div className="logo" onClick={() => setPage('home')} style={{ fontSize: '1.4rem', fontWeight: 700, letterSpacing: '2px', cursor: 'pointer' }}>
+          <div className="logo" onClick={() => setPage('home')} style={{ fontSize: '1.2rem', fontWeight: 800, letterSpacing: '3px', cursor: 'pointer', color: 'var(--text-primary)' }}>
             CHAROKI<span className="gold-text">CARS</span>
           </div>
-          <div className="desktop-menu" style={{ display: 'flex', gap: '40px', alignItems: 'center' }}>
+          <div className="desktop-menu" style={{ display: 'flex', gap: '45px', alignItems: 'center' }}>
             {menuItems.map((item) => (
               <span key={item.id} className={`nav-link ${activePage === item.id ? 'active' : ''}`} onClick={() => setPage(item.id)} style={{ cursor: 'pointer' }}>{item.label}</span>
             ))}
-            <button className="btn-primary" onClick={() => setPage('booking')} style={{ padding: '12px 30px' }}>RÉSERVER</button>
+            <button className="btn-primary" onClick={() => setPage('booking')} style={{ padding: '12px 35px' }}>RÉSERVER</button>
           </div>
           <div className="mobile-toggle" style={{ display: 'none', cursor: 'pointer' }} onClick={() => setIsMobileMenuOpen(true)}>
-             <Menu size={28} color="white" />
+             <Menu size={28} color="var(--text-primary)" />
           </div>
         </div>
       </nav>
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div className="mobile-nav-overlay" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} style={{ position: 'fixed', inset: 0, background: 'var(--bg-main)', zIndex: 2000, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '30px' }}>
-            <div style={{ position: 'absolute', top: '40px', right: '40px', cursor: 'pointer' }} onClick={() => setIsMobileMenuOpen(false)}><X size={32} color="var(--accent)" /></div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ position: 'fixed', inset: 0, background: '#fff', zIndex: 2000, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '40px' }}>
+            <div style={{ position: 'absolute', top: '40px', right: '40px', cursor: 'pointer' }} onClick={() => setIsMobileMenuOpen(false)}><X size={32} color="var(--text-primary)" /></div>
             {menuItems.map((item) => (
-              <span key={item.id} className="serif" style={{ fontSize: '2.5rem', color: activePage === item.id ? 'var(--accent)' : 'white', cursor: 'pointer' }} onClick={() => { setPage(item.id); setIsMobileMenuOpen(false); }}>{item.label}</span>
+              <span key={item.id} className="serif" style={{ fontSize: '3rem', color: activePage === item.id ? 'var(--accent)' : 'var(--text-primary)', cursor: 'pointer' }} onClick={() => { setPage(item.id); setIsMobileMenuOpen(false); }}>{item.label}</span>
             ))}
             <button className="btn-primary" onClick={() => { setPage('booking'); setIsMobileMenuOpen(false); }}>RÉSERVER MAINTENANT</button>
           </motion.div>
@@ -183,29 +182,17 @@ const CarCard = ({ car, setPage }: { car: Car, setPage: (p: string) => void }) =
   >
     <div className="image-wrapper">
       <img src={car.image} alt={car.name} />
-      {car.status === 'loué' && (
-        <div style={{ position: 'absolute', top: '20px', left: '20px', background: 'var(--accent)', color: 'black', padding: '5px 15px', fontSize: '0.6rem', fontWeight: 800, letterSpacing: '1px' }}>
-          LOUÉ
-        </div>
-      )}
     </div>
-    <div className="content">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-        <div>
-          <span style={{ fontSize: '0.65rem', color: 'var(--accent)', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase' }}>{car.brand}</span>
-          <h3 style={{ fontSize: '1.8rem', marginTop: '5px' }}>{car.name}</h3>
-        </div>
-        <div style={{ textAlign: 'right' }}>
-          <span style={{ fontSize: '1.4rem', fontWeight: 600 }}>{car.price}</span>
-          <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', display: 'block' }}>MAD / JOUR</span>
-        </div>
+    <div className="card-body">
+      <span style={{ fontSize: '0.6rem', color: 'var(--accent)', fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', display: 'block', marginBottom: '10px' }}>{car.brand}</span>
+      <h3 style={{ fontSize: '1.8rem', marginBottom: '20px', color: 'var(--text-primary)' }}>{car.name}</h3>
+      <div style={{ display: 'flex', gap: '20px', marginBottom: '25px', color: 'var(--text-secondary)', fontSize: '0.75rem', fontWeight: 500 }}>
+        <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Zap size={14} color="var(--accent)" /> {car.transmission}</span>
+        <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Fuel size={14} color="var(--accent)" /> {car.fuel}</span>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', padding: '20px 0', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', marginBottom: '25px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.75rem', color: 'var(--text-secondary)' }}><Zap size={14} color="var(--accent)" /> {car.transmission}</div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.75rem', color: 'var(--text-secondary)' }}><Fuel size={14} color="var(--accent)" /> {car.fuel}</div>
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center', color: 'var(--accent)', fontWeight: 700, fontSize: '0.7rem', letterSpacing: '2px' }}>
-        DÉCOUVRIR <ArrowUpRight size={16} style={{ marginLeft: '5px' }} />
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--border-light)', paddingTop: '20px' }}>
+        <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-primary)' }}>{car.price} MAD <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 400 }}>/ jour</span></div>
+        <div style={{ width: '35px', height: '35px', borderRadius: '50%', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ArrowUpRight size={16} /></div>
       </div>
     </div>
   </motion.div>
@@ -214,112 +201,97 @@ const CarCard = ({ car, setPage }: { car: Car, setPage: (p: string) => void }) =
 const Home = ({ setPage, cars }: { setPage: (p: string) => void, cars: Car[] }) => (
   <>
     <section className="hero">
-      <img className="hero-img" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2070" alt="Hero" />
-      <div className="hero-overlay"></div>
-      <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-        <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1 }}>
-          <span style={{ color: 'var(--accent)', fontWeight: 700, letterSpacing: '5px', fontSize: '0.75rem', display: 'block', marginBottom: '20px' }}>EST. 2016 • CASABLANCA</span>
-          <h1 style={{ fontSize: 'clamp(3.5rem, 8vw, 7rem)', lineHeight: 0.9, marginBottom: '30px' }}>
-            L'Émotion <br />
-            <span className="gold-text serif" style={{ fontStyle: 'italic' }}>Automobile</span>
-          </h1>
-          <p style={{ maxWidth: '500px', fontSize: '1.1rem', marginBottom: '45px' }}>
-            Une collection exclusive de véhicules pour ceux qui ne font aucun compromis sur l'excellence et le style.
-          </p>
-          <div style={{ display: 'flex', gap: '20px' }}>
-            <button className="btn-primary" onClick={() => setPage('fleet')}>NOTRE PARC</button>
-            <button className="btn-outline" onClick={() => setPage('contact')}>CONTACT</button>
-          </div>
-        </motion.div>
-      </div>
-      <motion.div 
-        animate={{ y: [0, 15, 0] }} 
-        transition={{ repeat: Infinity, duration: 2 }}
-        style={{ position: 'absolute', bottom: '50px', left: '50vw', transform: 'translateX(-50%)', zIndex: 2 }}
-      >
-        <div style={{ width: '1px', height: '80px', background: 'linear-gradient(to bottom, var(--accent), transparent)' }}></div>
-      </motion.div>
-    </section>
-
-    <section style={{ padding: '150px 0' }}>
       <div className="container">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '100px', alignItems: 'center' }}>
-          <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
-            <div style={{ position: 'relative' }}>
-              <img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=1000" alt="Concierge" style={{ width: '100%', height: '600px', objectFit: 'cover' }} />
-              <div style={{ position: 'absolute', bottom: '-40px', right: '-40px', background: 'var(--accent)', padding: '40px', color: 'black' }}>
-                <div style={{ fontSize: '3rem', fontWeight: 700, lineHeight: 1 }}>100%</div>
-                <div style={{ fontSize: '0.7rem', fontWeight: 800, letterSpacing: '2px' }}>SATISFACTION</div>
-              </div>
+        <div className="hero-content">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>
+            <span style={{ color: 'var(--accent)', fontWeight: 800, letterSpacing: '0.4em', fontSize: '0.7rem', display: 'block', marginBottom: '25px' }}>L'ART DE LA MOBILITÉ PREMIUM</span>
+            <h1 style={{ fontSize: 'clamp(3.5rem, 8vw, 6rem)', lineHeight: 1, marginBottom: '35px', color: 'var(--text-primary)' }}>
+              Voyagez avec <br />
+              <span className="serif" style={{ fontStyle: 'italic', fontWeight: 400 }}>Élégance</span>
+            </h1>
+            <p style={{ maxWidth: '500px', fontSize: '1.1rem', marginBottom: '50px', lineHeight: 1.8 }}>
+              Découvrez une sélection rigoureuse de véhicules d'exception pour vos séjours à Casablanca. Un service sur-mesure pour une expérience inégalée.
+            </p>
+            <div style={{ display: 'flex', gap: '20px' }}>
+              <button className="btn-primary" onClick={() => setPage('fleet')}>NOTRE COLLECTION</button>
+              <button className="btn-outline" onClick={() => setPage('contact')}>CONTACTER</button>
             </div>
           </motion.div>
+        </div>
+      </div>
+      <div className="hero-image-container">
+        <motion.img initial={{ scale: 1.1, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1.5 }} className="hero-img" src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&q=80&w=2070" alt="Luxury Car" />
+      </div>
+    </section>
+
+    <section style={{ padding: '140px 0', background: '#fff' }}>
+      <div className="container">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '80px', alignItems: 'center' }}>
           <div>
-            <SectionTitle title="Le Service Conciergerie" subtitle="NOTRE VISION" centered={false} />
-            <p style={{ marginBottom: '30px', fontSize: '1.2rem', color: '#fff' }}>Nous ne louons pas seulement des voitures, nous orchestrons vos déplacements avec une précision horlogère.</p>
-            <p style={{ marginBottom: '40px' }}>Situé au cœur de Gauthier, CHAROKI CARS est devenu la référence du luxe à Casablanca. Notre mission est simple : transformer chaque trajet en une expérience mémorable.</p>
-            <div className="grid-3" style={{ gridTemplateColumns: '1fr 1fr', gap: '30px' }}>
-              <div>
-                <ShieldCheck color="var(--accent)" size={32} style={{ marginBottom: '15px' }} />
-                <h4 style={{ fontSize: '0.8rem', letterSpacing: '1px', fontWeight: 700, marginBottom: '10px' }}>SÉRÉNITÉ TOTALE</h4>
-                <p style={{ fontSize: '0.85rem' }}>Assurance premium et assistance dédiée 24/7.</p>
+            <SectionTitle title="L'Excellence du Service" subtitle="NOTRE VISION" centered={false} />
+            <p style={{ marginBottom: '35px', fontSize: '1.1rem' }}>Basé au cœur du prestigieux quartier Gauthier, CHAROKI CARS redéfinit les standards de la location automobile au Maroc.</p>
+            <div style={{ display: 'grid', gap: '30px' }}>
+              <div style={{ display: 'flex', gap: '20px' }}>
+                <ShieldCheck color="var(--accent)" size={28} />
+                <div><h4 style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '5px' }}>SÉCURITÉ & SÉRÉNITÉ</h4><p style={{ fontSize: '0.9rem' }}>Assurance tous risques et assistance 24/7 incluse.</p></div>
               </div>
-              <div>
-                <MapPin color="var(--accent)" size={32} style={{ marginBottom: '15px' }} />
-                <h4 style={{ fontSize: '0.8rem', letterSpacing: '1px', fontWeight: 700, marginBottom: '10px' }}>MOBILITÉ LIBRE</h4>
-                <p style={{ fontSize: '0.85rem' }}>Livraison personnalisée : aéroport, hôtel ou bureau.</p>
+              <div style={{ display: 'flex', gap: '20px' }}>
+                <MapPin color="var(--accent)" size={28} />
+                <div><h4 style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '5px' }}>LIVRAISON PRIVÉE</h4><p style={{ fontSize: '0.9rem' }}>Aéroport, domicile ou bureau selon votre convenance.</p></div>
               </div>
             </div>
           </div>
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} style={{ position: 'relative', padding: '20px' }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, width: '70%', height: '100%', border: '1px solid var(--accent-light)', zIndex: 0 }}></div>
+            <img src="https://images.unsplash.com/photo-1469033092076-096ff723f901?auto=format&fit=crop&q=80&w=1000" style={{ width: '100%', position: 'relative', zIndex: 1, boxShadow: '0 10px 40px rgba(0,0,0,0.04)' }} alt="Luxury Interior" />
+          </motion.div>
         </div>
       </div>
     </section>
 
-    <section style={{ background: '#08080A', padding: '150px 0' }}>
+    <section style={{ padding: '140px 0', background: 'var(--bg-secondary)' }}>
       <div className="container">
-        <SectionTitle title="Sélection Premium" subtitle="L'EXCELLENCE" />
+        <SectionTitle title="Notre Sélection" subtitle="LA FLOTTE" />
         <div className="grid-3">
           {cars.slice(0, 3).map(car => <CarCard key={car.id} car={car} setPage={setPage} />)}
         </div>
-        <div style={{ textAlign: 'center', marginTop: '80px' }}>
-          <button className="btn-outline" onClick={() => setPage('fleet')}>DÉCOUVRIR TOUTE LA FLOTTE</button>
+        <div style={{ textAlign: 'center', marginTop: '70px' }}>
+          <button className="btn-outline" onClick={() => setPage('fleet')}>VOIR TOUTE LA COLLECTION</button>
         </div>
       </div>
     </section>
 
-    <section style={{ padding: '150px 0' }}>
+    <section style={{ padding: '140px 0' }}>
       <div className="container">
-        <SectionTitle title="Ils nous font Confiance" subtitle="TÉMOIGNAGES" />
-        <div className="grid-3">
-          {TESTIMONIALS.map(t => (
-            <motion.div key={t.id} style={{ background: 'var(--bg-card)', padding: '50px', border: '1px solid var(--border)' }}>
-              <div style={{ display: 'flex', gap: '5px', marginBottom: '30px' }}>
-                {[...Array(t.rating)].map((_, i) => <Star key={i} size={14} fill="var(--accent)" color="var(--accent)" />)}
-              </div>
-              <p className="serif" style={{ fontSize: '1.5rem', color: '#fff', fontStyle: 'italic', marginBottom: '40px', lineHeight: 1.4 }}>"{t.content}"</p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                <div style={{ width: '40px', height: '1px', background: 'var(--accent)' }}></div>
-                <div>
-                  <div style={{ fontWeight: 700, fontSize: '0.9rem' }}>{t.name}</div>
-                  <div style={{ color: 'var(--accent)', fontSize: '0.7rem', fontWeight: 600, letterSpacing: '1px' }}>{t.role}</div>
+        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+          <SectionTitle title="Expériences Clients" subtitle="ILS NOUS FONT CONFIANCE" />
+          <div className="grid-3" style={{ gap: '40px' }}>
+            {TESTIMONIALS.map(t => (
+              <div key={t.id} style={{ textAlign: 'center', padding: '40px', background: 'var(--bg-secondary)', borderRadius: '2px' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '4px', marginBottom: '25px' }}>
+                  {[...Array(t.rating)].map((_, i) => <Star key={i} size={12} fill="var(--accent)" color="var(--accent)" />)}
                 </div>
+                <p className="serif" style={{ fontSize: '1.4rem', fontStyle: 'italic', color: 'var(--text-primary)', marginBottom: '30px', lineHeight: 1.5 }}>"{t.content}"</p>
+                <div style={{ fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>{t.name}</div>
+                <div style={{ color: 'var(--accent)', fontSize: '0.65rem', marginTop: '5px' }}>{t.role}</div>
               </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
 
-    <section style={{ padding: '150px 0', borderTop: '1px solid var(--border)' }}>
+    <section style={{ padding: '140px 0', background: 'var(--bg-secondary)', borderTop: '1px solid var(--border)' }}>
       <div className="container">
-        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <SectionTitle title="FAQ" subtitle="QUESTIONS" />
           {FAQS.map((faq, i) => (
-            <details key={i} style={{ borderBottom: '1px solid var(--border)', padding: '30px 0', cursor: 'pointer' }}>
-              <summary style={{ listStyle: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '1.2rem', fontWeight: 500 }}>
+            <details key={i} style={{ borderBottom: '1px solid var(--border)', padding: '25px 0', cursor: 'pointer' }}>
+              <summary style={{ listStyle: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '1.1rem', fontWeight: 600 }}>
                 {faq.question}
-                <ChevronDown size={20} color="var(--accent)" />
+                <ChevronDown size={18} color="var(--accent)" />
               </summary>
-              <p style={{ marginTop: '20px', fontSize: '1rem', lineHeight: 1.6 }}>{faq.answer}</p>
+              <p style={{ marginTop: '20px', fontSize: '0.95rem', lineHeight: 1.7 }}>{faq.answer}</p>
             </details>
           ))}
         </div>
@@ -333,12 +305,12 @@ const Fleet = ({ setPage, cars }: { setPage: (p: string) => void, cars: Car[] })
   const filtered = filter === 'Tous' ? cars : cars.filter(c => c.category === filter);
 
   return (
-    <section style={{ paddingTop: '200px' }}>
+    <section style={{ paddingTop: '180px', paddingBottom: '140px' }}>
       <div className="container">
-        <SectionTitle title="Notre Flotte" subtitle="COLLECTION" />
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginBottom: '80px' }}>
+        <SectionTitle title="Notre Collection" subtitle="LA FLOTTE" />
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '80px', flexWrap: 'wrap' }}>
           {['Tous', 'Citadine', 'SUV', 'Berline'].map(f => (
-            <button key={f} onClick={() => setFilter(f)} style={{ background: filter === f ? 'var(--accent)' : 'transparent', border: '1px solid var(--accent)', color: filter === f ? 'black' : 'var(--accent)', padding: '10px 30px', cursor: 'pointer', fontWeight: 700, fontSize: '0.7rem', letterSpacing: '2px', transition: '0.3s' }}>
+            <button key={f} onClick={() => setFilter(f)} style={{ background: filter === f ? 'var(--text-primary)' : 'transparent', border: '1px solid var(--border)', color: filter === f ? '#fff' : 'var(--text-primary)', padding: '12px 30px', cursor: 'pointer', fontWeight: 700, fontSize: '0.65rem', letterSpacing: '0.2em', transition: '0.3s' }}>
               {f.toUpperCase()}
             </button>
           ))}
@@ -358,59 +330,57 @@ const ProductPage = ({ carId, setPage, cars }: { carId: number, setPage: (p: str
   const days = calculateDays(start, end);
 
   return (
-    <section style={{ paddingTop: '180px' }}>
+    <section style={{ paddingTop: '160px', paddingBottom: '140px' }}>
       <div className="container">
-        <button onClick={() => setPage('fleet')} className="nav-link" style={{ border: 'none', background: 'transparent', display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '60px', cursor: 'pointer' }}>
-          <ArrowLeft size={16} /> RETOUR À LA COLLECTION
+        <button onClick={() => setPage('fleet')} style={{ border: 'none', background: 'transparent', display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '50px', cursor: 'pointer', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--text-secondary)' }}>
+          <ArrowLeft size={16} /> RETOUR AU PARC
         </button>
-        <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '80px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '80px' }}>
           <div>
-            <motion.img initial={{ opacity: 0 }} animate={{ opacity: 1 }} src={car.image} alt={car.name} style={{ width: '100%', height: '600px', objectFit: 'cover', border: '1px solid var(--border)' }} />
-            <div style={{ marginTop: '60px' }}>
-              <h1 style={{ fontSize: '4rem', marginBottom: '20px' }}>{car.name}</h1>
+            <img src={car.image} alt={car.name} style={{ width: '100%', height: '550px', objectFit: 'cover', border: '1px solid var(--border)' }} />
+            <div style={{ marginTop: '50px' }}>
+              <div style={{ color: 'var(--accent)', fontWeight: 800, fontSize: '0.7rem', letterSpacing: '0.3em', marginBottom: '15px' }}>{car.brand.toUpperCase()}</div>
+              <h1 style={{ fontSize: '4rem', marginBottom: '25px' }}>{car.name}</h1>
               <div style={{ display: 'flex', gap: '15px', marginBottom: '40px' }}>
-                <span style={{ border: '1px solid var(--accent)', color: 'var(--accent)', padding: '5px 15px', fontSize: '0.7rem', fontWeight: 700 }}>{car.category}</span>
-                <span style={{ background: 'rgba(255,255,255,0.05)', padding: '5px 15px', fontSize: '0.7rem', fontWeight: 700 }}>{car.status.toUpperCase()}</span>
+                <span style={{ border: '1px solid var(--border)', padding: '6px 18px', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em' }}>{car.category}</span>
+                <span style={{ background: 'var(--accent)', color: '#fff', padding: '6px 18px', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em' }}>{car.status.toUpperCase()}</span>
               </div>
-              <p style={{ fontSize: '1.2rem', lineHeight: 1.8, marginBottom: '60px' }}>{car.fullDescription}</p>
-              <div className="grid-3" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
-                <div style={{ background: 'var(--bg-card)', padding: '30px', border: '1px solid var(--border)' }}>
+              <p style={{ fontSize: '1.1rem', lineHeight: 1.8, marginBottom: '50px' }}>{car.fullDescription}</p>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
+                <div style={{ padding: '30px', background: 'var(--bg-secondary)', border: '1px solid var(--border)' }}>
                   <span className="label-text">MOTEUR</span>
-                  <div style={{ fontWeight: 600 }}>{car.engine}</div>
+                  <div style={{ fontWeight: 700 }}>{car.engine}</div>
                 </div>
-                <div style={{ background: 'var(--bg-card)', padding: '30px', border: '1px solid var(--border)' }}>
+                <div style={{ padding: '30px', background: 'var(--bg-secondary)', border: '1px solid var(--border)' }}>
                   <span className="label-text">TRANSMISSION</span>
-                  <div style={{ fontWeight: 600 }}>{car.transmission}</div>
+                  <div style={{ fontWeight: 700 }}>{car.transmission}</div>
                 </div>
-                <div style={{ background: 'var(--bg-card)', padding: '30px', border: '1px solid var(--border)' }}>
+                <div style={{ padding: '30px', background: 'var(--bg-secondary)', border: '1px solid var(--border)' }}>
                   <span className="label-text">CARBURANT</span>
-                  <div style={{ fontWeight: 600 }}>{car.fuel}</div>
+                  <div style={{ fontWeight: 700 }}>{car.fuel}</div>
                 </div>
               </div>
             </div>
           </div>
-          <div style={{ position: 'sticky', top: '150px', height: 'fit-content' }}>
-            <div style={{ background: 'var(--bg-card)', padding: '50px', border: '1px solid var(--accent)' }}>
+          <div style={{ position: 'sticky', top: '140px', height: 'fit-content' }}>
+            <div style={{ padding: '50px', border: '1px solid var(--border)', background: '#fff', boxShadow: '0 10px 40px rgba(0,0,0,0.04)' }}>
               <span className="label-text">TARIF EXCLUSIF</span>
-              <div style={{ fontSize: '3rem', fontWeight: 700, color: 'var(--accent)', marginBottom: '40px' }}>{car.price} MAD <span style={{ fontSize: '1rem', color: 'var(--text-secondary)' }}>/ jour</span></div>
+              <div style={{ fontSize: '2.8rem', fontWeight: 800, marginBottom: '40px' }}>{car.price} MAD <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', fontWeight: 400 }}>/ jour</span></div>
               
               <div style={{ display: 'grid', gap: '20px', marginBottom: '40px' }}>
-                <div><label className="label-text">DÉPART</label><input type="date" className="input-field" value={start} onChange={e => setStart(e.target.value)} /></div>
+                <div><label className="label-text">DÉBUT</label><input type="date" className="input-field" value={start} onChange={e => setStart(e.target.value)} /></div>
                 <div><label className="label-text">RETOUR</label><input type="date" className="input-field" value={end} onChange={e => setEnd(e.target.value)} /></div>
               </div>
 
               {days > 0 && (
-                <div style={{ padding: '30px', background: 'rgba(255,255,255,0.03)', marginBottom: '40px', textAlign: 'center' }}>
-                  <span className="label-text">TOTAL ({days} JOURS)</span>
-                  <div style={{ fontSize: '2rem', fontWeight: 700 }}>{days * car.price} MAD</div>
+                <div style={{ padding: '25px', background: 'var(--bg-secondary)', marginBottom: '40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span className="label-text" style={{ marginBottom: 0 }}>TOTAL ({days} JOURS)</span>
+                  <div style={{ fontSize: '1.5rem', fontWeight: 800 }}>{days * car.price} MAD</div>
                 </div>
               )}
 
-              <button className="btn-primary" style={{ width: '100%' }} onClick={() => setPage(`booking-${car.id}-${start}-${end}`)}>RÉSERVER MAINTENANT</button>
-              
-              <div style={{ marginTop: '30px', textAlign: 'center' }}>
-                <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Besoin d'aide ? <br /> <strong>+212 700 382 718</strong></p>
-              </div>
+              <button className="btn-primary" style={{ width: '100%' }} onClick={() => setPage(`booking-${car.id}-${start}-${end}`)}>RÉSERVER CE VÉHICULE</button>
+              <p style={{ textAlign: 'center', marginTop: '30px', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Assistance WhatsApp : +212 700 382 718</p>
             </div>
           </div>
         </div>
@@ -431,34 +401,34 @@ const Booking = ({ selectedCarId, start, end, cars }: { selectedCarId?: number, 
   };
 
   return (
-    <section style={{ paddingTop: '200px', minHeight: '100vh' }}>
+    <section style={{ paddingTop: '180px', paddingBottom: '140px', background: 'var(--bg-secondary)', minHeight: '100vh' }}>
       <div className="container">
-        <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '50px' }}>
-          <div style={{ background: 'var(--bg-card)', padding: '60px', border: '1px solid var(--border)' }}>
-            <h2 className="serif" style={{ fontSize: '2.5rem', marginBottom: '40px' }}>Finaliser la <span className="gold-text">Réservation</span></h2>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '60px' }}>
+          <div style={{ background: '#fff', padding: '60px', border: '1px solid var(--border)', boxShadow: '0 10px 40px rgba(0,0,0,0.04)' }}>
+            <h2 className="serif" style={{ fontSize: '2.5rem', marginBottom: '40px' }}>Confirmation de <br /><span className="gold-text">Réservation</span></h2>
             {step === 1 ? (
-              <div style={{ display: 'grid', gap: '25px' }}>
-                <div><label className="label-text">DÉBUT</label><input type="date" className="input-field" value={form.start} onChange={e => setForm({...form, start: e.target.value})} /></div>
-                <div><label className="label-text">FIN</label><input type="date" className="input-field" value={form.end} onChange={e => setForm({...form, end: e.target.value})} /></div>
-                <button className="btn-primary" onClick={() => setStep(2)}>CONTINUER</button>
+              <div style={{ display: 'grid', gap: '30px' }}>
+                <div><label className="label-text">DÉBUT DE LOCATION</label><input type="date" className="input-field" value={form.start} onChange={e => setForm({...form, start: e.target.value})} /></div>
+                <div><label className="label-text">FIN DE LOCATION</label><input type="date" className="input-field" value={form.end} onChange={e => setForm({...form, end: e.target.value})} /></div>
+                <button className="btn-primary" onClick={() => setStep(2)}>SUIVANT</button>
               </div>
             ) : (
-              <div style={{ display: 'grid', gap: '25px' }}>
-                <div><label className="label-text">NOM COMPLET</label><input className="input-field" value={form.name} onChange={e => setForm({...form, name: e.target.value})} /></div>
-                <div><label className="label-text">TÉLÉPHONE</label><input className="input-field" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} /></div>
-                <button className="btn-primary" onClick={submit}>CONFIRMER SUR WHATSAPP</button>
-                <button className="btn-outline" onClick={() => setStep(1)}>MODIFIER DATES</button>
+              <div style={{ display: 'grid', gap: '30px' }}>
+                <div><label className="label-text">VOTRE NOM COMPLET</label><input className="input-field" value={form.name} onChange={e => setForm({...form, name: e.target.value})} /></div>
+                <div><label className="label-text">VOTRE TÉLÉPHONE</label><input className="input-field" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} /></div>
+                <button className="btn-primary" onClick={submit}>TERMINER SUR WHATSAPP</button>
+                <button className="btn-outline" style={{ border: 'none' }} onClick={() => setStep(1)}>MODIFIER LES DATES</button>
               </div>
             )}
           </div>
-          <div style={{ padding: '40px', border: '1px solid var(--border)' }}>
-            <img src={car.image} style={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', marginBottom: '25px' }} />
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '10px' }}>{car.name}</h3>
-            <div style={{ color: 'var(--accent)', fontWeight: 700 }}>{car.price} MAD / jour</div>
+          <div style={{ padding: '40px', border: '1px solid var(--border)', background: '#fff' }}>
+            <img src={car.image} style={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', marginBottom: '30px' }} />
+            <h3 style={{ fontSize: '1.6rem', marginBottom: '10px' }}>{car.name}</h3>
+            <div style={{ color: 'var(--accent)', fontWeight: 800, fontSize: '0.8rem', letterSpacing: '0.1em' }}>{car.price} MAD / JOUR</div>
             {days > 0 && (
-              <div style={{ marginTop: '30px', paddingTop: '30px', borderTop: '1px solid var(--border)' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}><span>Durée</span><span>{days} jours</span></div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.2rem', fontWeight: 700 }}><span>Total</span><span className="gold-text">{days * car.price} MAD</span></div>
+              <div style={{ marginTop: '40px', paddingTop: '30px', borderTop: '1px solid var(--border-light)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}><span style={{ color: 'var(--text-secondary)' }}>Durée</span><span>{days} jours</span></div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.4rem', fontWeight: 800 }}><span>Total</span><span className="gold-text">{days * car.price} MAD</span></div>
               </div>
             )}
           </div>
@@ -469,30 +439,29 @@ const Booking = ({ selectedCarId, start, end, cars }: { selectedCarId?: number, 
 };
 
 const Contact = () => (
-  <section style={{ paddingTop: '200px' }}>
+  <section style={{ paddingTop: '180px', paddingBottom: '140px' }}>
     <div className="container">
-      <SectionTitle title="Nous Contacter" subtitle="DISPONIBILITÉ" />
-      <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '80px', maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ background: 'var(--bg-card)', padding: '60px', border: '1px solid var(--border)' }}>
-          <h3 className="serif" style={{ fontSize: '2.5rem', marginBottom: '40px' }}>Parlons de votre <span className="gold-text">Projet</span></h3>
-          <div style={{ display: 'grid', gap: '40px' }}>
-            <div style={{ display: 'flex', gap: '20px' }}>
-              <div style={{ width: '50px', height: '50px', background: 'var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Phone color="black" /></div>
-              <div><div className="label-text">TÉLÉPHONE</div><div style={{ fontSize: '1.2rem', fontWeight: 600 }}>+212 700 382 718</div></div>
+      <SectionTitle title="Parlons de votre Séjour" subtitle="CONTACT" />
+      <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '80px', maxWidth: '1100px', margin: '0 auto' }}>
+        <div style={{ background: '#fff', padding: '60px', border: '1px solid var(--border)', boxShadow: '0 10px 40px rgba(0,0,0,0.04)' }}>
+          <div style={{ display: 'grid', gap: '50px' }}>
+            <div style={{ display: 'flex', gap: '25px' }}>
+              <div style={{ width: '50px', height: '50px', background: 'var(--bg-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--border)' }}><Phone size={20} /></div>
+              <div><div className="label-text">TÉLÉPHONE</div><div style={{ fontSize: '1.3rem', fontWeight: 700 }}>+212 700 382 718</div></div>
             </div>
-            <div style={{ display: 'flex', gap: '20px' }}>
-              <div style={{ width: '50px', height: '50px', background: 'var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><MapPin color="black" /></div>
-              <div><div className="label-text">ADRESSE</div><div style={{ fontSize: '1.2rem', fontWeight: 600 }}>Quartier Gauthier, Casablanca</div></div>
+            <div style={{ display: 'flex', gap: '25px' }}>
+              <div style={{ width: '50px', height: '50px', background: 'var(--bg-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--border)' }}><MapPin size={20} /></div>
+              <div><div className="label-text">SHOWROOM</div><div style={{ fontSize: '1.3rem', fontWeight: 700 }}>Quartier Gauthier, Casablanca</div></div>
             </div>
-            <div style={{ display: 'flex', gap: '20px' }}>
-              <div style={{ width: '50px', height: '50px', background: 'var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Clock color="black" /></div>
-              <div><div className="label-text">HORAIRES</div><div style={{ fontSize: '1.2rem', fontWeight: 600 }}>09:00 - 20:00 • Lun - Sam</div></div>
+            <div style={{ display: 'flex', gap: '25px' }}>
+              <div style={{ width: '50px', height: '50px', background: 'var(--bg-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--border)' }}><Clock size={20} /></div>
+              <div><div className="label-text">HORAIRES</div><div style={{ fontSize: '1.3rem', fontWeight: 700 }}>09:00 - 20:00 • Lun - Sam</div></div>
             </div>
           </div>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <p style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '40px' }}>Notre équipe vous accompagne pour une location sur mesure adaptée à vos exigences.</p>
-          <button className="btn-primary" style={{ padding: '25px' }} onClick={() => window.open(`https://wa.me/${WHATSAPP_NUMBER.replace('+', '')}`)}>DÉMARRER LA DISCUSSION WHATSAPP</button>
+          <p style={{ fontSize: '1.3rem', lineHeight: 1.6, marginBottom: '45px' }}>Notre équipe est à votre disposition pour vous conseiller et organiser votre mobilité sur-mesure à Casablanca.</p>
+          <button className="btn-primary" style={{ padding: '25px' }} onClick={() => window.open(`https://wa.me/${WHATSAPP_NUMBER.replace('+', '')}`)}>DÉBUTER SUR WHATSAPP</button>
         </div>
       </div>
     </div>
@@ -510,42 +479,46 @@ const App = () => {
       <Navbar activePage={page} setPage={setPage} />
       <main>
         <AnimatePresence mode="wait">
-          {page === 'home' && <motion.div key="home" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><Home setPage={setPage} cars={cars} /></motion.div>}
-          {page === 'fleet' && <motion.div key="fleet" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><Fleet setPage={setPage} cars={cars} /></motion.div>}
-          {page === 'contact' && <motion.div key="contact" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><Contact /></motion.div>}
-          {page === 'booking' && <motion.div key="booking" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><Booking cars={cars} /></motion.div>}
-          {page.startsWith('booking-') && <motion.div key="booking-car" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><Booking cars={cars} selectedCarId={Number(page.split('-')[1])} start={page.split('-')[2]} end={page.split('-')[3]} /></motion.div>}
-          {page.startsWith('product-') && <motion.div key="product" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><ProductPage carId={Number(page.split('-')[1])} setPage={setPage} cars={cars} /></motion.div>}
+          {page === 'home' && <motion.div key="home" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}><Home setPage={setPage} cars={cars} /></motion.div>}
+          {page === 'fleet' && <motion.div key="fleet" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}><Fleet setPage={setPage} cars={cars} /></motion.div>}
+          {page === 'contact' && <motion.div key="contact" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}><Contact /></motion.div>}
+          {page === 'booking' && <motion.div key="booking" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}><Booking cars={cars} /></motion.div>}
+          {page.startsWith('booking-') && <motion.div key="booking-car" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}><Booking cars={cars} selectedCarId={Number(page.split('-')[1])} start={page.split('-')[2]} end={page.split('-')[3]} /></motion.div>}
+          {page.startsWith('product-') && <motion.div key="product" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}><ProductPage carId={Number(page.split('-')[1])} setPage={setPage} cars={cars} /></motion.div>}
         </AnimatePresence>
       </main>
-      <footer style={{ padding: '100px 0 50px', background: '#050505', borderTop: '1px solid var(--border)' }}>
+      <footer style={{ padding: '100px 0 60px', background: '#fff', borderTop: '1px solid var(--border)' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '100px', marginBottom: '80px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1.2fr', gap: '80px', marginBottom: '80px' }}>
             <div>
-              <div className="logo" style={{ fontSize: '2rem', fontWeight: 700, marginBottom: '30px' }}>CHAROKI<span className="gold-text">CARS</span></div>
-              <p style={{ maxWidth: '400px', marginBottom: '30px' }}>L'excellence de la location automobile à Casablanca. Une flotte d'exception pour vos moments privilégiés.</p>
-              <div style={{ display: 'flex', gap: '20px' }}>
-                <Instagram size={20} className="nav-link" style={{ cursor: 'pointer' }} />
-                <Facebook size={20} className="nav-link" style={{ cursor: 'pointer' }} />
-                <MessageCircle size={20} className="nav-link" style={{ cursor: 'pointer' }} />
+              <div className="logo" style={{ fontSize: '1.8rem', fontWeight: 800, letterSpacing: '2px', marginBottom: '30px' }}>CHAROKI<span className="gold-text">CARS</span></div>
+              <p style={{ maxWidth: '400px', marginBottom: '35px', lineHeight: 1.8 }}>L'excellence automobile à Casablanca. Une collection exclusive de véhicules premium pour vos exigences les plus hautes.</p>
+              <div style={{ display: 'flex', gap: '25px' }}>
+                <Instagram size={18} style={{ opacity: 0.6, cursor: 'pointer' }} />
+                <Facebook size={18} style={{ opacity: 0.6, cursor: 'pointer' }} />
+                <MessageCircle size={18} style={{ opacity: 0.6, cursor: 'pointer' }} />
               </div>
             </div>
             <div>
-              <h4 className="label-text">LIENS</h4>
-              <ul style={{ listStyle: 'none', display: 'grid', gap: '15px' }}>
-                <li className="nav-link" onClick={() => setPage('home')} style={{ cursor: 'pointer' }}>ACCUEIL</li>
-                <li className="nav-link" onClick={() => setPage('fleet')} style={{ cursor: 'pointer' }}>LA FLOTTE</li>
-                <li className="nav-link" onClick={() => setPage('contact')} style={{ cursor: 'pointer' }}>CONTACT</li>
+              <h4 className="label-text" style={{ marginBottom: '30px' }}>LIENS UTILES</h4>
+              <ul style={{ listStyle: 'none', display: 'grid', gap: '18px' }}>
+                <li style={{ cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600, opacity: 0.6 }} onClick={() => setPage('home')}>ACCUEIL</li>
+                <li style={{ cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600, opacity: 0.6 }} onClick={() => setPage('fleet')}>NOTRE COLLECTION</li>
+                <li style={{ cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600, opacity: 0.6 }} onClick={() => setPage('contact')}>NOUS CONTACTER</li>
               </ul>
             </div>
             <div>
-              <h4 className="label-text">OFFICE</h4>
-              <p style={{ fontSize: '0.9rem' }}>12 Rue Gauthier<br />Casablanca, Maroc<br /><br />+212 700 382 718</p>
+              <h4 className="label-text" style={{ marginBottom: '30px' }}>COORDONNÉES</h4>
+              <div style={{ fontSize: '0.9rem', lineHeight: 1.8, opacity: 0.8 }}>
+                12 Rue Gauthier, Casablanca, Maroc<br /><br />
+                Tél : +212 700 382 718<br />
+                Mail : contact@charokicars.ma
+              </div>
             </div>
           </div>
-          <div style={{ borderTop: '1px solid var(--border)', paddingTop: '40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--text-secondary)', fontSize: '0.7rem', letterSpacing: '1px' }}>
+          <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--text-secondary)', fontSize: '0.65rem', letterSpacing: '0.15em' }}>
             <span>© {new Date().getFullYear()} CHAROKI CARS. TOUS DROITS RÉSERVÉS.</span>
-            <span>DESIGN BY LUXURY DIGITAL</span>
+            <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>LUXURY DIGITAL</span>
           </div>
         </div>
       </footer>
